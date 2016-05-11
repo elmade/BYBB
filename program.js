@@ -1,11 +1,4 @@
-//for (var i = 0; i < 8; i++) {
-//for (var j = 0; j < 4; j++) {
-// move(100);
- //turnRight(90);
-//}
-//turnRight(45);
 
-//}
 
 tabelle = "<table>"; //hier beginnt die Tabelle für das Labyrinth
 
@@ -38,6 +31,7 @@ document.getElementById("22").style.backgroundColor = 'brown';
 document.getElementById("23").style.backgroundColor = 'brown';
 document.getElementById("24").style.backgroundColor = 'brown';
 
+<<<<<<< HEAD
 var bgImage = tabelle;
 
 //Knopf für Bewegung nach rechts
@@ -46,3 +40,5 @@ var bgImage = tabelle;
 //function myFunction(move 100) {
 //document.getElementById("mytitle").innerHTML = "Dieser Text wurde vom Skript geschrieben";
 //}
+=======
+>>>>>>> origin/master
