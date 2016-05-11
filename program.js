@@ -55,7 +55,7 @@ ctx.drawImage(img, 0, 0);
 }
 
 function init() {
-canvas = document.getElementById("canvas");
+	canvas = document.getElementById("cancas");
 ctx = canvas.getContext("2d");
 img.src = "maze.gif";
 return setInterval(draw, 10);
