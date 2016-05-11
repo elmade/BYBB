@@ -27,8 +27,6 @@ document.write(tabelle);
 
 
 document.getElementById("0").style.backgroundColor = 'brown';
-
-
 document.getElementById("1").style.backgroundColor = 'brown';
 document.getElementById("8").style.backgroundColor = 'brown';
 document.getElementById("10").style.backgroundColor = 'brown';
@@ -39,3 +37,12 @@ document.getElementById("20").style.backgroundColor = 'brown';
 document.getElementById("22").style.backgroundColor = 'brown';
 document.getElementById("23").style.backgroundColor = 'brown';
 document.getElementById("24").style.backgroundColor = 'brown';
+
+var bgImage = tabelle;
+
+//Knopf für Bewegung nach rechts
+//funktioniert noch nicht
+//goToXY(0,0);
+//function myFunction(move 100) {
+//document.getElementById("mytitle").innerHTML = "Dieser Text wurde vom Skript geschrieben";
+//}
