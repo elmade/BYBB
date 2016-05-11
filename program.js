@@ -33,10 +33,3 @@ document.getElementById("22").style.backgroundColor = 'brown';
 document.getElementById("23").style.backgroundColor = 'brown';
 document.getElementById("24").style.backgroundColor = 'brown';
 
-//canvas erstellen:
-
-/*var canvas = document.createElement("canvas");
-var ctx = canvas.getContext("2d");
-canvas.width = 512;
-canvas.height = 480;
-document.body.appendChild(canvas);*/
