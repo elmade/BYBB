@@ -1,11 +1,4 @@
-//for (var i = 0; i < 8; i++) {
-//for (var j = 0; j < 4; j++) {
-// move(100);
- //turnRight(90);
-//}
-//turnRight(45);
 
-//}
 
 tabelle = "<table>"; //hier beginnt die Tabelle für das Labyrinth
 
@@ -39,3 +32,11 @@ document.getElementById("20").style.backgroundColor = 'brown';
 document.getElementById("22").style.backgroundColor = 'brown';
 document.getElementById("23").style.backgroundColor = 'brown';
 document.getElementById("24").style.backgroundColor = 'brown';
+
+//canvas erstellen:
+
+/*var canvas = document.createElement("canvas");
+var ctx = canvas.getContext("2d");
+canvas.width = 512;
+canvas.height = 480;
+document.body.appendChild(canvas);*/
