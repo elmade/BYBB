@@ -39,7 +39,9 @@ document.getElementById("24").style.backgroundColor = 'brown';*/
 //function myFunction(move 100) {
 //document.getElementById("mytitle").innerHTML = "Dieser Text wurde vom Skript geschrieben";
 //}
-function Labyrinth(){
+
+
+function Bybb(){
 	var canvas,
 	board,
 	player;
@@ -124,3 +126,4 @@ $(document).keyup(function(e){
 });
 
 draw();
+};
