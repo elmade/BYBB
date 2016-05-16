@@ -39,10 +39,18 @@ document.getElementById("24").style.backgroundColor = 'brown';*/
 //function myFunction(move 100) {
 //document.getElementById("mytitle").innerHTML = "Dieser Text wurde vom Skript geschrieben";
 //}
+function Labyrinth(){
+	var canvas,
+	board,
+	player;
+	
+canvas = document.getElementById("GameBoardCanvas");
 
-var canvas = $('#GameBoardCanvas');
+
+//var canvas = $('#GameBoardCanvas');
+
 //The game board 1 = walls, 0 = free space, and -1 = the goal
-var board = [
+board = {
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [ 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
@@ -53,10 +61,12 @@ var board = [
     [ 1, 0, 1, 0, 1, 0, 1, 0, 0, 0],
     [ 1, 0, 1, 0, 1, 0, 0, 1, 1, 0],
     [-1, 0, 1, 0, 1, 1, 0, 0, 0, 0]
-];
-var player = {
+};
+
+player = {
     x: 0,
     y: 0
+}
 };
 
 //Draw the game board
