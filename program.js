@@ -46,9 +46,10 @@ document.getElementById("24").style.backgroundColor = 'brown';*/
 	  var canvas, 
         context,
         bounce = -1;
+	
+	canvas = document.getElementById("canvas");
         
     
-    canvas = $("#canvas")[0];
     context = canvas.getContext("2d");
     var w = canvas.width;
     var h = canvas.height; 
