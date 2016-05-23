@@ -112,7 +112,8 @@ function canMove(x, y){
     return (y>=0) && (y<board.length) && (x >= 0) && (x < board[y].length) && (board[y][x] != 1);
 }
 
-$(document).keyup(function(e){
+//$(document).keyup(function(e){
+	document.getElementById('GameBoardCanvas').onkeyup = function (e) {
     if((e.which == 38) && canMove(player.x, player.y-1))//Up arrow
         player.y--;
     else if((e.which == 40) && canMove(player.x, player.y+1)) // down arrow
@@ -123,7 +124,7 @@ $(document).keyup(function(e){
         player.x++;
     draw();
     e.preventDefault();
-});
+
 
 draw();
 };
