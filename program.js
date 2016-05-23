@@ -52,7 +52,7 @@ canvas = document.getElementById("GameBoardCanvas");
 //var canvas = $('#GameBoardCanvas');
 
 //The game board 1 = walls, 0 = free space, and -1 = the goal
-board = {
+board = [
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [ 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
@@ -63,7 +63,7 @@ board = {
     [ 1, 0, 1, 0, 1, 0, 1, 0, 0, 0],
     [ 1, 0, 1, 0, 1, 0, 0, 1, 1, 0],
     [-1, 0, 1, 0, 1, 1, 0, 0, 0, 0]
-};
+];
 
 player = {
     x: 0,
@@ -73,9 +73,9 @@ player = {
 
 //Draw the game board
 function draw(){
-    var width = canvas.width();
+    var width = canvas.width;
     var blockSize = width/board.length;
-    var ctx = canvas[0].getContext('2d');
+    var ctx = canvas.getContext('2d');
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, width, width);
     ctx.fillStyle="white";
