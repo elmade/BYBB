@@ -1,8 +1,9 @@
 #GameBoardCanvas {
-    border: 1px solid red;
+    border: 5px solid maroon;
     padding: 5px;
     margin-left: auto;
     margin-right: auto;
+	background: rosybrown;
 }
 
 body {
