@@ -3,13 +3,14 @@ function Bybb(){
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
+	var buch; //Variable für Buch
 
 	
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
 
 
 
-//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch
+//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel
 board = [
 
 	[ "w", "w", "w", "w", "m", "w", "m", "m", "m", "w"],
@@ -17,7 +18,7 @@ board = [
     [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
     [ "w", "m", "w", "m", "w", "w", "m", "w", "m", "w"],
-    [ "w", "m", "w", "m", "b", "m", "m", "w", "m", "w"],
+    [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "m", "m", "w", "w", "m", "w"],
     [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
     [ "m", "m", "m", "w", "m", "m", "m", "m", "m", "w"],
@@ -30,6 +31,10 @@ player = {
     y: 0
 };
 
+buch = {
+    x: 100,
+    y: 50
+};
 
 //Labyrinth zeichnen
 function draw(){
@@ -48,10 +53,7 @@ function draw(){
                 ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
             }
 			
-			else if (board[y][x] === "b"){
-				ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
-				ctx.fillStyle = "red";
-			}
+		
 			
             //Ziel wird gezeichnet: bisher goldenes X
             else if(board[y][x] === "z"){ //Code für X-Zeichen folgt
@@ -72,9 +74,16 @@ function draw(){
     ctx.fillStyle = "blue";
     ctx.arc(player.x*blockSize+half, player.y*blockSize+half, half, 0, 2*Math.PI); //Kreis wird gezeichnet
     ctx.fill();
+
+	// Buch wird gezeichnet
+ //ctx.beginPath();
+ //board: [100, 50];
+    var viertel = blockSize/4; // Kreis wird mittig plaziert
+    ctx.fillStyle = "red";
+    ctx.arc(buch.x*blockSize+viertel, buch.y*blockSize+viertel, viertel, 0, 2*Math.PI); //Kreis wird gezeichnet
+    ctx.fill();
 }
 
- 
 
 
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds

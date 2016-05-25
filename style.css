@@ -1,3 +1,5 @@
+
+
 #GameBoardCanvas {
     border: 5px solid maroon;
     padding: 5px;
@@ -7,9 +9,8 @@
 }
 
 body {
-    background: black;
     padding: 5px;
-	color: white;
+	color: black;
+	background-image: /zimmer.jpg;
 	
 }
-
