@@ -46,7 +46,11 @@ function draw(){
             //Mauer wird gezeichnet
             if(board[y][x] === "m"){
                 ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
-          
+            }
+			
+			else if (board[y][x] === "b"){
+				ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
+				ctx.fillStyle = "red";
 			}
 			
             //Ziel wird gezeichnet: bisher goldenes X
@@ -70,7 +74,6 @@ function draw(){
     ctx.fill();
 }
 
-//Buch wird gezeichnet
  
 
 
