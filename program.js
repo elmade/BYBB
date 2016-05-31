@@ -3,7 +3,8 @@ function Bybb(){
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
-	var buch; //Variable für Buch
+	
+
 
 	
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
@@ -17,7 +18,7 @@ board = [
     [ "m", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
-    [ "w", "m", "w", "m", "w", "w", "m", "w", "m", "w"],
+    [ "w", "m", "w", "m", "b", "w", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "m", "m", "w", "w", "m", "w"],
     [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
@@ -53,6 +54,16 @@ function draw(){
                 ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
             }
 			
+			   else if(board[y][x] === "b"){ //Code für X-Zeichen folgt
+                ctx.beginPath();
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = "gold";
+                ctx.moveTo(x*blockSize, y*blockSize);
+                ctx.lineTo((x+1)*blockSize, (y+1)*blockSize);
+                ctx.moveTo(x*blockSize, (y+1)*blockSize);
+                ctx.lineTo((x+1)*blockSize, y*blockSize);
+                ctx.stroke();
+            }
 		
 			
             //Ziel wird gezeichnet: bisher goldenes X
@@ -78,10 +89,17 @@ function draw(){
 	// Buch wird gezeichnet
  //ctx.beginPath();
  //board: [100, 50];
-    var viertel = blockSize/4; // Kreis wird mittig plaziert
-    ctx.fillStyle = "red";
-    ctx.arc(buch.x*blockSize+viertel, buch.y*blockSize+viertel, viertel, 0, 2*Math.PI); //Kreis wird gezeichnet
-    ctx.fill();
+ 
+    //var viertel = blockSize/4; // Kreis wird mittig plaziert
+    //ctx.fillStyle = "red";
+    //ctx.arc(buch.x*blockSize+viertel, buch.y*blockSize+viertel, viertel, 0, 2*Math.PI); //Kreis wird gezeichnet
+    //ctx.fill();
+
+//var buch =	fillRect(10, 20, 30, 300);
+//fillStyle = "green";
+
+		
+
 }
 
 
@@ -91,7 +109,7 @@ function draw(){
 //x und y dürfen nicht größer als die Länge des Labyrinth/board sein
 //x und y dürfen nicht "m" sein (board[y][x] != "m")
 
-//mit if els neu schreiben
+//mit if else neu schreiben
 function canMove(x, y){
     return (y>=0) && (y<board.length) && (x >= 0) && (x < board[y].length) && (board[y][x] != "m");
 }
