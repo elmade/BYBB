@@ -12,6 +12,8 @@ function Bybb(){
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
 	var Ziel;
+	var buch;
+	
 	
 
 	
@@ -41,8 +43,6 @@ player = {
 };
 
 
-
-
 //Labyrinth zeichnen
 function draw(){
     var width = canvas.width; //Labyrinth passt sich der Breite des Canvas an
@@ -55,10 +55,9 @@ function draw(){
 	
 //Bild von Buch
 	//Problem: wird erst nach 1. Tastendruck angezeigt
-	var image = new Image();
-	image.src = 'buch.JPG';
-	ctx.drawImage(image,165,165, 30, 30);
 	
+	ctx.drawImage(image,165,165, 30, 30); //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
+
     //Schleife durch Array für das Zeichnen der Wände und des Ziels
     for(var y = 0; y < board.length; y++){ //Schleife beginnt links oben im Spielfeld, läuft durch Array, Endposition ist unten rechts im Spielfeld
         for(var x = 0; x < board[y].length; x++){
@@ -70,7 +69,7 @@ function draw(){
 			//else if(board[y][x] === "b"){ 
 			//Viereck und Mauer wird ab gewisser Stelle grün
 			//ctx.fillStyle = "green";
-			//ctx.fillRect(30,40,30,30);
+			//ctx.fillRect(165,165,30,30);
 			//}
 		
 			
@@ -85,48 +84,18 @@ function draw(){
                 ctx.lineTo((x+1)*blockSize, y*blockSize);
                 ctx.stroke();
 				 }
-				 
-			//else if(player === "z") {
-				//alert("Gewonnen.");
-			//}	
-
-				
-				
-           
         }
     }
 	
-	
-	
+
     //Spieler wird gezeichnet
     ctx.beginPath();
     var half = blockSize/2; // Kreis wird mittig plaziert
     ctx.fillStyle = "blue";
     ctx.arc(player.x*blockSize+half, player.y*blockSize+half, half, 0, 2*Math.PI); //Kreis wird gezeichnet
-    ctx.fill();
-
-	// Buch wird gezeichnet
-	//var img = new Image();   // Create new img element
-//img.src = 'buch.jpg';
-//ctx.drawImage(img, 100, 100);
-	
- 
-
-		
+    ctx.fill();	
 
 }
-
-//Buch soll verschwinden
-
-
- //if (player === "b" && board ==="b")
-              // {
-               // ctx.clearRect;
-				
-              // }
-
-
-
 
 
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
@@ -168,6 +137,15 @@ function Ziel() {
 		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
 	}
 }
+
+function buch(){
+	if(board[player.y][player.x] == "b") {
+		//Buch ausblenden - funktioniert noch nicht
+		//ctx.clear(image);
+		//alert("Buch gefunden");
+	}
+}
+
 };
 
 
