@@ -4,6 +4,7 @@ function Bybb(){
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
 	
+	
 
 
 	
@@ -32,10 +33,8 @@ player = {
     y: 0
 };
 
-buch = {
-    x: 100,
-    y: 50
-};
+
+
 
 //Labyrinth zeichnen
 function draw(){
@@ -76,9 +75,20 @@ function draw(){
                 ctx.moveTo(x*blockSize, (y+1)*blockSize);
                 ctx.lineTo((x+1)*blockSize, y*blockSize);
                 ctx.stroke();
-            }
+				 }
+				 
+			//else if(player === "z") {
+				//alert("Gewonnen.");
+			//}	
+
+				
+				
+           
         }
     }
+	
+	
+	
     //Spieler wird gezeichnet
     ctx.beginPath();
     var half = blockSize/2; // Kreis wird mittig plaziert
@@ -102,6 +112,14 @@ function draw(){
 
 }
 
+//Buch soll verschwinden
+
+
+ //if (player === "b" && board ==="b")
+              // {
+               // ctx.clearRect;
+				
+              // }
 
 
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
@@ -111,6 +129,7 @@ function draw(){
 
 //mit if else neu schreiben
 function canMove(x, y){
+	
     return (y>=0) && (y<board.length) && (x >= 0) && (x < board[y].length) && (board[y][x] != "m");
 }
 
@@ -126,6 +145,8 @@ $(document).keyup(function(e){
     draw(); //nach jedem Tastenanschlag wird das Layrinth neu gezeichnet
     e.preventDefault(); //übliche Tastenfunktion wird verhindert z. B. scrollen mit Pfeiltasten 
 	});
+
+
 
 draw();
 };
