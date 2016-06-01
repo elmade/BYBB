@@ -6,7 +6,7 @@ function Bybb(){
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
-	
+	var Ziel;
 	
 
 	
@@ -145,12 +145,21 @@ $(document).keyup(function(e){
     else if((e.which == 39) && canMove(player.x+1, player.y)) //Pfeiltaste rechts
         player.x++; //x wird um eins vergrößert, Spieler bewegt sich nach rechts
     draw(); //nach jedem Tastenanschlag wird das Layrinth neu gezeichnet
+	Ziel();
     e.preventDefault(); //übliche Tastenfunktion wird verhindert z. B. scrollen mit Pfeiltasten 
 	});
 
 
 
 draw();
+
+function Ziel() {
+	if(board[player.y][player.x] == "z") {
+		//= {x: 9, y: 9}) {
+			//
+		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek");
+	}
+}
 };
 
 
