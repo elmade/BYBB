@@ -163,7 +163,7 @@ draw();
 var Timer;
 var TotalSeconds;
 
-function CreateTimer(TimerID, Time) {
+function CreateTimer(Timer, Total) {
 Timer = document.getElementById(TimerID);
 TotalSeconds = Time;
 
@@ -176,7 +176,7 @@ function Tick() {
 alert("Oh nein! Die Leihfrist ist abgelaufen!")
 return;
 }
-TotalSeconds -= 1;
+TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer()
 window.setTimeout("Tick()", 1000);
 }
