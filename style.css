@@ -31,3 +31,8 @@ body {
 	font-size: 3em;
 	text-align: center;
 }
+
+#timer {
+	background-color: white;
+	text-align: center;
+}

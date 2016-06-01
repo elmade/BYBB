@@ -1,10 +1,12 @@
-
+					
 function Bybb(){
+	
+	CreateTimer("timer", 30);
+	
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
 	
-
 
 	
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
@@ -129,3 +131,37 @@ $(document).keyup(function(e){
 
 draw();
 };
+
+
+
+
+//Countdown:
+
+var Timer;
+var TotalSeconds;
+
+function CreateTimer(TimerID, Time) {
+Timer = document.getElementById(TimerID);
+TotalSeconds = Time;
+
+UpdateTimer()
+window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funktion wird jede Sekunde einmal aufgerufen
+}
+
+function Tick() {
+	if (TotalSeconds <= 0) {				//Der Countdown stoppt bei 0 und liefert ein Popup-Fenster
+alert("Oh nein! Die Leihfrist ist abgelaufen!")
+return;
+}
+TotalSeconds -= 1;
+UpdateTimer()
+window.setTimeout("Tick()", 1000);
+}
+
+function UpdateTimer() {
+Timer.innerHTML = TotalSeconds;
+}
+
+
+
+
