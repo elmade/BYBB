@@ -6,7 +6,7 @@
     margin-left: auto;
     margin-right: auto;
 	background: rosybrown;
- display: block;
+	display: block;
     margin: 0 auto;
 }
 
@@ -35,4 +35,5 @@ body {
 #timer {
 	background-color: white;
 	text-align: center;
+	font-size: 2em;
 }
