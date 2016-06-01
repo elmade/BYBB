@@ -3,6 +3,11 @@ function Bybb(){
 	
 	CreateTimer("timer", 25);
 	
+				
+		
+	
+
+	
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
@@ -47,6 +52,13 @@ function draw(){
     ctx.clearRect(0, 0, width, width);
     ctx.fillStyle="maroon"; //Farbe für Mauer
 	
+	
+//Bild von Buch
+	//Problem: wird erst nach 1. Tastendruck angezeigt
+	var image = new Image();
+	image.src = 'buch.JPG';
+	ctx.drawImage(image,165,165, 30, 30);
+	
     //Schleife durch Array für das Zeichnen der Wände und des Ziels
     for(var y = 0; y < board.length; y++){ //Schleife beginnt links oben im Spielfeld, läuft durch Array, Endposition ist unten rechts im Spielfeld
         for(var x = 0; x < board[y].length; x++){
@@ -54,17 +66,12 @@ function draw(){
             if(board[y][x] === "m"){
                 ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
             }
-			
-			   else if(board[y][x] === "b"){ //Code für X-Zeichen folgt
-                ctx.beginPath();
-                ctx.lineWidth = 5;
-                ctx.strokeStyle = "gold";
-                ctx.moveTo(x*blockSize, y*blockSize);
-                ctx.lineTo((x+1)*blockSize, (y+1)*blockSize);
-                ctx.moveTo(x*blockSize, (y+1)*blockSize);
-                ctx.lineTo((x+1)*blockSize, y*blockSize);
-                ctx.stroke();
-            }
+			//grünes Quadrat als Buch wird gezeichnet
+			//else if(board[y][x] === "b"){ 
+			//Viereck und Mauer wird ab gewisser Stelle grün
+			//ctx.fillStyle = "green";
+			//ctx.fillRect(30,40,30,30);
+			//}
 		
 			
             //Ziel wird gezeichnet: bisher goldenes X
@@ -99,16 +106,11 @@ function draw(){
     ctx.fill();
 
 	// Buch wird gezeichnet
- //ctx.beginPath();
- //board: [100, 50];
+	//var img = new Image();   // Create new img element
+//img.src = 'buch.jpg';
+//ctx.drawImage(img, 100, 100);
+	
  
-    //var viertel = blockSize/4; // Kreis wird mittig plaziert
-    //ctx.fillStyle = "red";
-    //ctx.arc(buch.x*blockSize+viertel, buch.y*blockSize+viertel, viertel, 0, 2*Math.PI); //Kreis wird gezeichnet
-    //ctx.fill();
-
-//var buch =	fillRect(10, 20, 30, 300);
-//fillStyle = "green";
 
 		
 
@@ -134,6 +136,7 @@ function draw(){
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (board[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
+		//else if (board[y][x]) == "b") { Destroy();}
 		// oder hier alert für gewonnen
 		//else if (board[y][x] == "z"){alert('Gewonnen!');}
 		else {return true;}	
@@ -162,7 +165,7 @@ function Ziel() {
 	if(board[player.y][player.x] == "z") {
 		//= {x: 9, y: 9}) {
 			//
-		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek");
+		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
 	}
 }
 };
