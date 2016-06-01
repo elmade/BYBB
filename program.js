@@ -124,16 +124,21 @@ function draw(){
               // }
 
 
-//Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
-//x und y dürfen nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
-//x und y dürfen nicht größer als die Länge des Labyrinth/board sein
-//x und y dürfen nicht "m" sein (board[y][x] != "m")
 
-//mit if else neu schreiben
-function canMove(x, y){
-	
-    return (y>=0) && (y<board.length) && (x >= 0) && (x < board[y].length) && (board[y][x] != "m");
-}
+
+
+//Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
+	function canMove(x,y){
+		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
+		else if (y<0){return false;} //y darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
+		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
+		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
+		else if (board[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
+		// oder hier alert für gewonnen
+		//else if (board[y][x] == "z"){alert('Gewonnen!');}
+		else {return true;}	
+	};
+
 
 $(document).keyup(function(e){
     if((e.which == 38) && canMove(player.x, player.y-1))//Pfeiltaste nach oben
