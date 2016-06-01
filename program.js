@@ -1,7 +1,7 @@
 					
 function Bybb(){
 	
-	CreateTimer("timer", 30);
+	CreateTimer("timer", 25);
 	
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
@@ -23,7 +23,7 @@ board = [
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
     [ "w", "m", "w", "m", "b", "w", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
-    [ "w", "m", "w", "m", "m", "m", "w", "w", "m", "w"],
+    [ "w", "m", "w", "m", "m", "m", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
     [ "m", "m", "m", "w", "m", "m", "m", "m", "m", "w"],
     [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "z"]
@@ -152,9 +152,6 @@ $(document).keyup(function(e){
 
 draw();
 };
-<<<<<<< HEAD
-=======
-
 
 
 
@@ -163,7 +160,7 @@ draw();
 var Timer;
 var TotalSeconds;
 
-function CreateTimer(Timer, Total) {
+function CreateTimer(TimerID, Time) {
 Timer = document.getElementById(TimerID);
 TotalSeconds = Time;
 
@@ -172,9 +169,10 @@ window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funkt
 }
 
 function Tick() {
-	if (TotalSeconds <= 0) {				//Der Countdown stoppt bei 0 und liefert ein Popup-Fenster
+	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster
 alert("Oh nein! Die Leihfrist ist abgelaufen!")
-return;
+return; 
+//return function Bybb();			//Bybb-Funktion sollte eigentlich auch enden
 }
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer()
@@ -185,7 +183,3 @@ function UpdateTimer() {
 Timer.innerHTML = TotalSeconds;
 }
 
-
-
-
->>>>>>> origin/master
