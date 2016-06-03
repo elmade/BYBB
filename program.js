@@ -3,17 +3,12 @@ function Bybb(){
 	
 	CreateTimer("timer", 25);
 	
-				
-		
-	
-
 	
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
 	var Ziel;
-	var buch;
-	
+	var Buch;
 	
 
 	
@@ -21,7 +16,7 @@ canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas au
 
 
 
-//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel
+//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch
 board = [
 
 	[ "w", "w", "w", "w", "m", "w", "m", "m", "m", "w"],
@@ -55,7 +50,8 @@ function draw(){
 	
 //Bild von Buch
 	//Problem: wird erst nach 1. Tastendruck angezeigt
-	
+	var image = new Image();
+	image.src = 'buch.JPG';
 	ctx.drawImage(image,165,165, 30, 30); //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
 
     //Schleife durch Array für das Zeichnen der Wände und des Ziels
@@ -89,12 +85,17 @@ function draw(){
 	
 
     //Spieler wird gezeichnet
-    ctx.beginPath();
+   ctx.beginPath();
     var half = blockSize/2; // Kreis wird mittig plaziert
     ctx.fillStyle = "blue";
     ctx.arc(player.x*blockSize+half, player.y*blockSize+half, half, 0, 2*Math.PI); //Kreis wird gezeichnet
-    ctx.fill();	
-
+    ctx.fill();
+	
+	
+	//Spieler durch Bild ersetzen:		wird nicht angezeigt, hängt vermutlich damit zusammen, dass das Bild erst nach Tastendruck erscheint...
+/*  var player = new Image();
+	image.src = 'tom.JPG';
+	ctx.drawImage(player,0,0, 30, 30);  */
 }
 
 
@@ -130,21 +131,27 @@ $(document).keyup(function(e){
 
 draw();
 
+function Buch() {
+	if(board[player.y][player.x] == "b") {
+		//Buch ausblenden - funktioniert noch nicht (3 Möglichkeiten)
+		
+		//document.getElementById("image.src").style.visibility = "hidden";
+		
+		//function hideImage() { 
+		//document.getElementById('image').style.visibility = 'hidden';};
+		
+		//ctx.clear(image);
+		alert("Buch gefunden");
+	};
+};
+
 function Ziel() {
 	if(board[player.y][player.x] == "z") {
-		//= {x: 9, y: 9}) {
-			//
 		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
-	}
-}
+	};
+};
 
-function buch(){
-	if(board[player.y][player.x] == "b") {
-		//Buch ausblenden - funktioniert noch nicht
-		//ctx.clear(image);
-		//alert("Buch gefunden");
-	}
-}
+
 
 };
 
