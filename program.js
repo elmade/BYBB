@@ -3,8 +3,8 @@ function Bybb(){
 	
 	CreateTimer("timer", 25);		//Countdown wird erstellt, Sekundenanzahl festgelegt
 	zielSound = new sound("cheering.mp3");		//Sound beim Erreichen des Ziels, Datei wird verknüpft
-	backgroundMusik = new sound("background.wav");
-    backgroundMusik.play();
+	backgroundMusik = new sound("background.wav"); 	//Hintergrundmusik, wird verknüpft
+    backgroundMusik.play();							//Hintergrundmusik wird abgespielt
 	
 	
 	var canvas; //Variable für Spielfeld
@@ -160,7 +160,8 @@ function Ziel() {
 	};
 };
 
-function sound(src) {				//sound-Objekt, legt Eigenschaften des Sounds fest und ermöglicht dem Programm mit Sounds umzugehen
+//Sound-Objekt, legt Eigenschaften der Sounds fest und ermöglicht dem Programm mit Sounds umzugehen
+function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;
     this.sound.setAttribute("preload", "auto");
@@ -179,8 +180,7 @@ function sound(src) {				//sound-Objekt, legt Eigenschaften des Sounds fest und 
 
 
 
-//Countdown:
-
+//Countdown
 var Timer;
 var TotalSeconds;
 
