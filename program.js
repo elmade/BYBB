@@ -1,14 +1,15 @@
 					
 function Bybb(){
 	
-	CreateTimer("timer", 25);
-	
+	CreateTimer("timer", 25);		//Countdown
+	zielSound = new sound("cheering.mp3");		//Sound beim Erreichen des Ziels
 	
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
 	var Ziel;
 	var Buch;
+	var zielSound;
 	
 
 	
@@ -92,7 +93,7 @@ function draw(){
     ctx.fill();
 	
 	
-	//Spieler durch Bild ersetzen:		wird nicht angezeigt, hängt vermutlich damit zusammen, dass das Bild erst nach Tastendruck erscheint...
+	//Spieler durch Bild ersetzen:		- wird nicht angezeigt, hängt vermutlich damit zusammen, dass das andere Bild auch erst nach Tastendruck erscheint...
 /*  var player = new Image();
 	image.src = 'tom.JPG';
 	ctx.drawImage(player,0,0, 30, 30);  */
@@ -147,11 +148,26 @@ function Buch() {
 
 function Ziel() {
 	if(board[player.y][player.x] == "z") {
+		zielSound.play();
 		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
+		
 	};
 };
 
-
+function sound(src) {				//sound-Objekt, legt Eigenschaften des Sounds fest und ermöglicht dem Programm mit Sounds umzugehen
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+};
 
 };
 
