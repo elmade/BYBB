@@ -1,8 +1,11 @@
 					
 function Bybb(){
 	
-	CreateTimer("timer", 25);		//Countdown
-	zielSound = new sound("cheering.mp3");		//Sound beim Erreichen des Ziels
+	CreateTimer("timer", 25);		//Countdown wird erstellt, Sekundenanzahl festgelegt
+	zielSound = new sound("cheering.mp3");		//Sound beim Erreichen des Ziels, Datei wird verknüpft
+	backgroundMusik = new sound("background.wav");
+    backgroundMusik.play();
+	
 	
 	var canvas; //Variable für Spielfeld
 	var board; //Variable für Labyrinth
@@ -10,6 +13,7 @@ function Bybb(){
 	var Ziel;
 	var Buch;
 	var zielSound;
+	var backgroundMusik;
 	
 
 	
@@ -150,7 +154,9 @@ function Ziel() {
 	if(board[player.y][player.x] == "z") {
 		zielSound.play();
 		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
-		
+		//Bybb.stop();
+		//Tick.stop();
+            //return;
 	};
 };
 
