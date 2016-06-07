@@ -5,6 +5,7 @@ function Bybb(){
 	zielSound = new sound("cheering.mp3");		//Sound beim Erreichen des Ziels, Datei wird verknüpft
 	backgroundMusik = new sound("background.wav"); 	//Hintergrundmusik, wird verknüpft
     backgroundMusik.play();							//Hintergrundmusik wird abgespielt
+	buchSound = new sound("ping.mp3");				//Sound beim Einsammeln des Buchs, Verknüpfung
 	
 	
 	var canvas; //Variable für Spielfeld
@@ -14,6 +15,7 @@ function Bybb(){
 	var Buch;
 	var zielSound;
 	var backgroundMusik;
+	var buchSound;
 	
 
 	
@@ -53,11 +55,7 @@ function draw(){
     ctx.fillStyle="maroon"; //Farbe für Mauer
 	
 	
-//Bild von Buch
-	//Problem: wird erst nach 1. Tastendruck angezeigt
-	var image = new Image();
-	image.src = 'buch.JPG';
-	ctx.drawImage(image,165,165, 30, 30); //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
+
 
     //Schleife durch Array für das Zeichnen der Wände und des Ziels
     for(var y = 0; y < board.length; y++){ //Schleife beginnt links oben im Spielfeld, läuft durch Array, Endposition ist unten rechts im Spielfeld
@@ -84,23 +82,30 @@ function draw(){
                 ctx.moveTo(x*blockSize, (y+1)*blockSize);
                 ctx.lineTo((x+1)*blockSize, y*blockSize);
                 ctx.stroke();
-				 }
-        }
-    }
+				 };
+        };
+		
+		//Bild von Buch
+	//Problem: wird erst nach 1. Tastendruck angezeigt
+	var image = new Image();
+	image.src = 'buch.JPG';
+	ctx.drawImage(image,165,165, 30, 30); //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
+    
+	};
 	
 
-    //Spieler wird gezeichnet
+    /*//Spieler wird gezeichnet
    ctx.beginPath();
     var half = blockSize/2; // Kreis wird mittig plaziert
     ctx.fillStyle = "blue";
     ctx.arc(player.x*blockSize+half, player.y*blockSize+half, half, 0, 2*Math.PI); //Kreis wird gezeichnet
-    ctx.fill();
+    ctx.fill();*/
 	
 	
-	//Spieler durch Bild ersetzen:		- wird nicht angezeigt, hängt vermutlich damit zusammen, dass das andere Bild auch erst nach Tastendruck erscheint...
-/*  var player = new Image();
+	//Spieler durch Bild ersetzen:		- wird angezeigt, aber lässt sich nicht mehr steuern...
+  var player = new Image();
 	image.src = 'tom.JPG';
-	ctx.drawImage(player,0,0, 30, 30);  */
+	ctx.drawImage(image,0,0, 30, 30);  
 }
 
 
@@ -129,6 +134,7 @@ $(document).keyup(function(e){
         player.x++; //x wird um eins vergrößert, Spieler bewegt sich nach rechts
     draw(); //nach jedem Tastenanschlag wird das Layrinth neu gezeichnet
 	Ziel();
+	Buch();
     e.preventDefault(); //übliche Tastenfunktion wird verhindert z. B. scrollen mit Pfeiltasten 
 	});
 
@@ -146,6 +152,7 @@ function Buch() {
 		//document.getElementById('image').style.visibility = 'hidden';};
 		
 		//ctx.clear(image);
+		buchSound.play();
 		alert("Buch gefunden");
 	};
 };
