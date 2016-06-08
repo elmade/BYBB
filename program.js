@@ -26,27 +26,29 @@ canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas au
 //Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch
 board = [
 
-	[ "w", "w", "w", "w", "m", "w", "m", "m", "m", "w"],
-    [ "m", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
+	[ "w", "b", "z", "w", "m", "w", "m", "m", "m", "w"],
+    [ "w", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
-    [ "w", "m", "w", "m", "b", "w", "m", "w", "m", "w"],
+    [ "w", "m", "w", "m", "w", "w", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "m", "m", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
     [ "m", "m", "m", "w", "m", "m", "m", "m", "m", "w"],
-    [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "z"]
+    [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "w"]
 ];
 
 //Startposition des Spielers
 player = {
     x: 0,
-    y: 0
+    y: 0,
+	book: false
 };
 
 
 //Labyrinth zeichnen
 function draw(){
+	console.log("Karte malen")
     var width = canvas.width; //Labyrinth passt sich der Breite des Canvas an
     var blockSize = width/board[0].length; //Blockgröße ist abhängig von board
     var ctx = canvas.getContext('2d');
@@ -62,14 +64,15 @@ function draw(){
         for(var x = 0; x < board[y].length; x++){
             //Mauer wird gezeichnet
             if(board[y][x] === "m"){
+				ctx.fillStyle = "maroon"
                 ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
             }
 			//grünes Quadrat als Buch wird gezeichnet
-			//else if(board[y][x] === "b"){ 
+			else if(board[y][x] === "b"){ 
 			//Viereck und Mauer wird ab gewisser Stelle grün
-			//ctx.fillStyle = "green";
-			//ctx.fillRect(165,165,30,30);
-			//}
+			ctx.fillStyle = "green";
+			ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
+			}
 		
 			
             //Ziel wird gezeichnet: bisher goldenes X
@@ -87,29 +90,29 @@ function draw(){
 	
 		//Bild von Buch
 	//Problem: wird erst nach 1. Tastendruck angezeigt
-	var image = new Image();
-	image.src = 'buch.JPG';
-	image.onload = function(){
-	ctx.drawImage(image,165,165, 30, 30)
-	}; //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
+	//var image = new Image();
+	//image.src = 'buch.JPG';
+	//image.onload = function(){
+	//ctx.drawImage(image,165,165, 30, 30)
+	//}; //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
     
 	};
 
 
-    /*//Spieler wird gezeichnet
+   //Spieler wird gezeichnet
    ctx.beginPath();
     var half = blockSize/2; // Kreis wird mittig plaziert
     ctx.fillStyle = "blue";
     ctx.arc(player.x*blockSize+half, player.y*blockSize+half, half, 0, 2*Math.PI); //Kreis wird gezeichnet
-    ctx.fill();*/
+    ctx.fill();
 	
 	
-	//Spieler durch Bild ersetzen:		- wird angezeigt, aber lässt sich nicht mehr steuern...
+	/*//Spieler durch Bild ersetzen:		- wird angezeigt, aber lässt sich nicht mehr steuern...
   var player = new Image();
 	player.src = 'tom.JPG';
 	player.onload = function(){
 	ctx.drawImage(player,0,0, 30, 40)
-	};  
+	}; */ 
 }
 
 
@@ -156,15 +159,23 @@ function Buch() {
 		//document.getElementById('image').style.visibility = 'hidden';};
 		
 		//ctx.clear(image);
+		board[player.y][player.x]="w";
+		player.book=true;
 		buchSound.play();
-		alert("Buch gefunden");
+		console.log("Buch gefunden");
 	};
 };
 
 function Ziel() {
 	if(board[player.y][player.x] == "z") {
+		//Spieler hat Buch
+		if (player.book == true){
 		zielSound.play();
 		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
+		}
+		else {
+		alert("Leider hast du es nicht geschafft");
+		};
 		//Bybb.stop();
 		//Tick.stop();
             //return;
