@@ -26,7 +26,7 @@ canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas au
 //Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch
 board = [
 
-	[ "w", "m", "z", "w", "m", "w", "m", "m", "m", "w"],
+	[ "w", "m", "w", "w", "m", "w", "m", "m", "m", "w"],
     [ "w", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
@@ -35,7 +35,7 @@ board = [
     [ "w", "m", "w", "m", "m", "m", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
     [ "m", "m", "m", "w", "m", "m", "m", "m", "m", "w"],
-    [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "w"]
+    [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "z"]
 ];
 
 //Startposition des Spielers
@@ -97,21 +97,15 @@ function draw(){
 
 
    //Spieler wird gezeichnet
-	//ctx.beginPath();
-	//var half = blockSize/2; 
-	ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 40, 40);
-    /*var half = blockSize/2; // Kreis wird mittig plaziert
-    ctx.fillStyle = "blue";
-    ctx.arc(player.x*blockSize+half, player.y*blockSize+half, half, 0, 2*Math.PI); //Kreis wird gezeichnet
-    ctx.fill();*/
+
+	if (player.book == false) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
+	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 40, 40);} 
+	else if (player.book == true)	//Wenn das Buch aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 40, 40);}
+
 	
 	
-	/*//Spieler durch Bild ersetzen:		- wird angezeigt, aber lässt sich nicht mehr steuern...
-  var player = new Image();
-	player.src = 'tom.JPG';
-	player.onload = function(){
-	ctx.drawImage(document.getElementById('tom'), 0, 0, 30, 30)
-	}; */ 
+	
 }
 
 
@@ -147,9 +141,10 @@ $(document).keyup(function(e){
 draw();
 
 function Buch() {
+	
 	if(board[player.y][player.x] == "b") {
 		board[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
-		player.book=true; //Spieler wird Merkmal übermittelt, das Buch berührt wurde
+		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch berührt wurde
 		buchSound.play();
 		console.log("Buch gefunden");
 	};
