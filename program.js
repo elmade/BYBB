@@ -97,18 +97,20 @@ function draw(){
 
 
    //Spieler wird gezeichnet
-   ctx.beginPath();
-    var half = blockSize/2; // Kreis wird mittig plaziert
+	//ctx.beginPath();
+	//var half = blockSize/2; 
+	ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 40, 40);
+    /*var half = blockSize/2; // Kreis wird mittig plaziert
     ctx.fillStyle = "blue";
     ctx.arc(player.x*blockSize+half, player.y*blockSize+half, half, 0, 2*Math.PI); //Kreis wird gezeichnet
-    ctx.fill();
+    ctx.fill();*/
 	
 	
 	/*//Spieler durch Bild ersetzen:		- wird angezeigt, aber lässt sich nicht mehr steuern...
   var player = new Image();
 	player.src = 'tom.JPG';
 	player.onload = function(){
-	ctx.drawImage(player,0,0, 30, 40)
+	ctx.drawImage(document.getElementById('tom'), 0, 0, 30, 30)
 	}; */ 
 }
 
@@ -121,8 +123,6 @@ function draw(){
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (board[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
 		//else if (board[y][x]) == "b") { Destroy();}
-		// oder hier alert für gewonnen
-		//else if (board[y][x] == "z"){alert('Gewonnen!');}
 		else {return true;}	
 	};
 
@@ -137,8 +137,8 @@ $(document).keyup(function(e){
     else if((e.which == 39) && canMove(player.x+1, player.y)) //Pfeiltaste rechts
         player.x++; //x wird um eins vergrößert, Spieler bewegt sich nach rechts
     draw(); //nach jedem Tastenanschlag wird das Layrinth neu gezeichnet
-	Ziel();
-	Buch();
+	Ziel();	//die Zielfunktion wird immer wieder neu angesprochen
+	Buch();	//die Buchfunktion auch
     e.preventDefault(); //übliche Tastenfunktion wird verhindert z. B. scrollen mit Pfeiltasten 
 	});
 
