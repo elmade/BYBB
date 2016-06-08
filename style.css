@@ -34,8 +34,9 @@ body {
 	background-color: white;
 	text-align: center;
 	font-size: 2em;
-	margin-right: 500px;
-	margin-left: 500px;
+	margin-right: 580px;
+	margin-left: 580px;
+	border: 4px solid maroon;
 
 	
 }
