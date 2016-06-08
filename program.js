@@ -89,7 +89,9 @@ function draw(){
 	//Problem: wird erst nach 1. Tastendruck angezeigt
 	var image = new Image();
 	image.src = 'buch.JPG';
-	ctx.drawImage(image,165,165, 30, 30); //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
+	image.onload = function(){
+	ctx.drawImage(image,165,165, 30, 30)
+	}; //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
     
 	};
 
@@ -103,9 +105,11 @@ function draw(){
 	
 	
 	//Spieler durch Bild ersetzen:		- wird angezeigt, aber lässt sich nicht mehr steuern...
-  player = new Image();
-	image.src = 'tom.JPG';
-	ctx.drawImage(image,0,0, 30, 40);  
+  var player = new Image();
+	player.src = 'tom.JPG';
+	player.onload = function(){
+	ctx.drawImage(player,0,0, 30, 40)
+	};  
 }
 
 
