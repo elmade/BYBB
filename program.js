@@ -68,30 +68,24 @@ function draw(){
             }
 			//Buch mit Bild
 			else if(board[y][x] === "b"){ 
-			ctx.drawImage(document.getElementById('buch'), 165, 165, 40, 40)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
+			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
 		
 			
-            //Ziel wird gezeichnet: goldenes X
+            //Ziel mit Bild
             else if(board[y][x] === "z"){ //Code für X-Zeichen folgt
-                ctx.beginPath();
+                ctx.drawImage(document.getElementById('library'), 530, 530, 75, 75);
+				
+				/*ctx.beginPath();
                 ctx.lineWidth = 5;
                 ctx.strokeStyle = "gold";
                 ctx.moveTo(x*blockSize, y*blockSize);
                 ctx.lineTo((x+1)*blockSize, (y+1)*blockSize);
                 ctx.moveTo(x*blockSize, (y+1)*blockSize);
                 ctx.lineTo((x+1)*blockSize, y*blockSize);
-                ctx.stroke();
+                ctx.stroke();*/
 				 };
         };
-	
-		//Bild von Buch
-	
-	//var image = new Image();
-	//image.src = 'buch.JPG';
-	//image.onload = function(){
-	//ctx.drawImage(image,165,165, 30, 30)
-	//}; //Variable image, gefolgt von X- und Y-Koordinate, sowie Angaben zur Bildgröße: Breite, Höhe
     
 	};
 
@@ -99,14 +93,12 @@ function draw(){
    //Spieler wird gezeichnet
 
 	if (player.book == false) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
-	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 40, 40);} 
+	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
 	else if (player.book == true)	//Wenn das Buch aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
-	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 40, 40);}
+	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 
 	
-	
-	
-}
+};
 
 
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
@@ -160,7 +152,7 @@ function Ziel() {
 		//Spieler hat Buch nicht eingesammelt
 		else {
 		//Sound einfügen
-		alert("Leider hast du es nicht geschafft :( ");
+		alert("Tom, wo ist das Buch?");
 		};
 		
 		console.log("Spiel stoppen 1");
