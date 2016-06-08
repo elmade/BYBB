@@ -68,7 +68,7 @@ function draw(){
             }
 			//Buch mit Bild
 			else if(board[y][x] === "b"){ 
-			ctx.drawImage(document.getElementById('buch'), 165, 165, 30, 30)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
+			ctx.drawImage(document.getElementById('buch'), 165, 165, 40, 40)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
 		
 			
