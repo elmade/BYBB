@@ -42,7 +42,7 @@ board = [
 player = {
     x: 0,
     y: 0,
-	book: false
+	book: false //Spieler hat Buch noch nicht berührt
 };
 
 
@@ -151,16 +151,8 @@ draw();
 
 function Buch() {
 	if(board[player.y][player.x] == "b") {
-		//Buch ausblenden - funktioniert noch nicht (3 Möglichkeiten)
-		
-		//document.getElementById("image.src").style.visibility = "hidden";
-		
-		//function hideImage() { 
-		//document.getElementById('image').style.visibility = 'hidden';};
-		
-		//ctx.clear(image);
-		board[player.y][player.x]="w";
-		player.book=true;
+		board[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
+		player.book=true; //Spieler wird Merkmal übermittelt, das Buch berührt wurde
 		buchSound.play();
 		console.log("Buch gefunden");
 	};
@@ -168,18 +160,24 @@ function Buch() {
 
 function Ziel() {
 	if(board[player.y][player.x] == "z") {
-		//Spieler hat Buch
+		//Spieler hat Buch eingesammelt
 		if (player.book == true){
 		zielSound.play();
 		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
 		}
+		//Spieler hat Buch nicht eingesammelt
 		else {
-		alert("Leider hast du es nicht geschafft");
+		//Sound einfügen
+		alert("Leider hast du es nicht geschafft :( ");
 		};
+		
+		console.log("Spiel stoppen 1");
 		//Bybb.stop();
 		//Tick.stop();
             //return;
+	
 	};
+//return;
 };
 
 //Sound-Objekt, legt Eigenschaften der Sounds fest und ermöglicht dem Programm mit Sounds umzugehen
@@ -218,6 +216,7 @@ function Tick() {
 	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster
 alert("Oh nein! Die Leihfrist ist abgelaufen!")
 return; 
+console.log("Spiel stoppen 2")
 //return function Bybb();			//Bybb-Funktion sollte eigentlich auch enden
 }
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
