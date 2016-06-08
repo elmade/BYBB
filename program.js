@@ -26,11 +26,11 @@ canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas au
 //Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch
 board = [
 
-	[ "w", "b", "z", "w", "m", "w", "m", "m", "m", "w"],
+	[ "w", "m", "z", "w", "m", "w", "m", "m", "m", "w"],
     [ "w", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
-    [ "w", "m", "w", "m", "w", "w", "m", "w", "m", "w"],
+    [ "w", "m", "w", "m", "b", "w", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "m", "m", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
@@ -52,7 +52,6 @@ function draw(){
     var width = canvas.width; //Labyrinth passt sich der Breite des Canvas an
     var blockSize = width/board[0].length; //Blockgröße ist abhängig von board
     var ctx = canvas.getContext('2d');
-    //ctx.setTransform(1, 0, 0, 1, 0, 0); //wird scheinbar nicht gebraucht
     ctx.clearRect(0, 0, width, width);
     ctx.fillStyle="maroon"; //Farbe für Mauer
 	
@@ -67,15 +66,13 @@ function draw(){
 				ctx.fillStyle = "maroon"
                 ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
             }
-			//grünes Quadrat als Buch wird gezeichnet
+			//Buch mit Bild
 			else if(board[y][x] === "b"){ 
-			//Viereck und Mauer wird ab gewisser Stelle grün
-			ctx.fillStyle = "green";
-			ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
+			ctx.drawImage(document.getElementById('buch'), 165, 165, 30, 30)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
 		
 			
-            //Ziel wird gezeichnet: bisher goldenes X
+            //Ziel wird gezeichnet: goldenes X
             else if(board[y][x] === "z"){ //Code für X-Zeichen folgt
                 ctx.beginPath();
                 ctx.lineWidth = 5;
@@ -89,7 +86,7 @@ function draw(){
         };
 	
 		//Bild von Buch
-	//Problem: wird erst nach 1. Tastendruck angezeigt
+	
 	//var image = new Image();
 	//image.src = 'buch.JPG';
 	//image.onload = function(){
