@@ -8,13 +8,20 @@
     margin: 0 auto;
 }
 
+#timer {
+	background-color: white;
+	text-align: center;
+	font-size: 2em;
+	margin-right: 580px;
+	margin-left: 580px;
+	border: 4px solid maroon;
+}
+
 body {
     padding: 5px;
 	color: black;
 	background: url(zimmer.jpg);
 	background-size: cover;
-	
-	
 }
 
 
@@ -30,13 +37,8 @@ body {
 	text-align: center;
 }
 
-#timer {
-	background-color: white;
-	text-align: center;
-	font-size: 2em;
-	margin-right: 580px;
-	margin-left: 580px;
-	border: 4px solid maroon;
-
-	
+footer {
+	text-align: right;
+	margin-top: 2em;
+	font-weight: bold;
 }
