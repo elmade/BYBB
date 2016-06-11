@@ -6,6 +6,8 @@ function Bybb(){
 	backgroundMusik = new sound("background.wav"); 	//Hintergrundmusik, wird verknüpft
     backgroundMusik.play();							//Hintergrundmusik wird abgespielt
 	buchSound = new sound("ping.mp3");				//Sound beim Einsammeln des Buchs, Verknüpfung
+	zielSoundOhne = new sound ("becken.mp3");		//Sound beim Erreichen des Ziels ohne Buch, Verknüpfung
+	
 	
 	
 	var canvas; //Variable für Spielfeld
@@ -16,6 +18,7 @@ function Bybb(){
 	var zielSound;
 	var backgroundMusik;
 	var buchSound;
+	var zielSoundOhne;
 	
 
 	
@@ -151,7 +154,7 @@ function Ziel() {
 		}
 		//Spieler hat Buch nicht eingesammelt
 		else {
-		//Sound einfügen
+		zielSoundOhne.play();
 		alert("Tom, wo ist das Buch?");
 		};
 		
@@ -197,8 +200,12 @@ window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funkt
 }
 
 function Tick() {
-	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster
-alert("Oh nein! Die Leihfrist ist abgelaufen!")
+	lostSound = new sound ("ohhh.mp3");						//Sound beim Ablauf der Zeit, Verknüpung
+	var lostSound;
+	
+	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
+	lostSound.play();						
+alert("Oh nein! Die Leihfrist ist abgelaufen!");
 return; 
 console.log("Spiel stoppen 2")
 //return function Bybb();			//Bybb-Funktion sollte eigentlich auch enden
@@ -206,6 +213,23 @@ console.log("Spiel stoppen 2")
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer()
 window.setTimeout("Tick()", 1000);
+
+//2. Soundobjekt für die Timer-Funktion
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+};
+
 }
 
 function UpdateTimer() {
