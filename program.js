@@ -76,17 +76,8 @@ function draw(){
 		
 			
             //Ziel mit Bild
-            else if(board[y][x] === "z"){ //Code für X-Zeichen folgt
+            else if(board[y][x] === "z"){
                 ctx.drawImage(document.getElementById('library'), 530, 530, 75, 75);
-				
-				/*ctx.beginPath();
-                ctx.lineWidth = 5;
-                ctx.strokeStyle = "gold";
-                ctx.moveTo(x*blockSize, y*blockSize);
-                ctx.lineTo((x+1)*blockSize, (y+1)*blockSize);
-                ctx.moveTo(x*blockSize, (y+1)*blockSize);
-                ctx.lineTo((x+1)*blockSize, y*blockSize);
-                ctx.stroke();*/
 				 };
         };
     
@@ -111,7 +102,7 @@ function draw(){
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (board[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
-		//else if (board[y][x]) == "b") { Destroy();}
+		//else if (board[y][x]) == "z") {break;}
 		else {return true;}	
 	};
 
@@ -155,13 +146,14 @@ function Ziel() {
 		//Spieler hat Buch nicht eingesammelt
 		else {
 		zielSoundOhne.play();
-		alert("Tom, wo ist das Buch?");
+		alert("Wo ist das Buch?");
 		};
 		
 		console.log("Spiel stoppen 1");
 		//Bybb.stop();
 		//Tick.stop();
             //return;
+		//break;
 	
 	};
 //return;
@@ -199,6 +191,10 @@ UpdateTimer()
 window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funktion wird jede Sekunde einmal aufgerufen
 }
 
+
+
+
+
 function Tick() {
 	lostSound = new sound ("ohhh.mp3");						//Sound beim Ablauf der Zeit, Verknüpung
 	var lostSound;
@@ -234,5 +230,10 @@ function sound(src) {
 
 function UpdateTimer() {
 Timer.innerHTML = TotalSeconds;
+}
+
+function stopTimer(){
+clearTimeout();
+
 }
 
