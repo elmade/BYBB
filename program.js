@@ -102,7 +102,7 @@ function draw(){
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (board[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
-		//else if (board[y][x]) == "z") {break;}
+		//else if (board[player.y][player.x] =="z" && player.book=true {return false;}
 		else {return true;}	
 	};
 
