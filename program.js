@@ -1,5 +1,9 @@
-					
+var	nochZeit = true;				
+
+if (nochZeit == true){					
 function Bybb(){
+	
+	
 	
 	CreateTimer("timer", 25);		//Countdown wird erstellt, Sekundenanzahl festgelegt
 	zielSound = new sound("cheering.mp3");		//Sound beim Erreichen des Ziels, Datei wird verknüpft
@@ -142,6 +146,8 @@ function Ziel() {
 		if (player.book == true){
 		zielSound.play();
 		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
+		nochZeit = false;
+		console.log(nochZeit);
 		}
 		//Spieler hat Buch nicht eingesammelt
 		else {
@@ -182,6 +188,7 @@ function sound(src) {
 //Countdown
 var Timer;
 var TotalSeconds;
+//var nochZeit = true;
 
 function CreateTimer(TimerID, Time) {
 Timer = document.getElementById(TimerID);
@@ -196,15 +203,16 @@ window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funkt
 
 
 function Tick() {
-	lostSound = new sound ("ohhh.mp3");						//Sound beim Ablauf der Zeit, Verknüpung
-	var lostSound;
+	loseSound = new sound ("ohhh.mp3");						//Sound beim Ablauf der Zeit, Verknüpung
+	var loseSound;
 	
 	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
-	lostSound.play();						
+	loseSound.play();						
 alert("Oh nein! Die Leihfrist ist abgelaufen!");
+nochZeit = false;
+console.log(nochZeit);
 return; 
 console.log("Spiel stoppen 2")
-//return function Bybb();			//Bybb-Funktion sollte eigentlich auch enden
 }
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer()
@@ -234,6 +242,8 @@ Timer.innerHTML = TotalSeconds;
 
 function stopTimer(){
 clearTimeout();
+
+};
 
 }
 
