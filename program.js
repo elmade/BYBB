@@ -99,7 +99,7 @@ function draw(){
 			else if(aktuellesBoard[y][x] === "b"){ 
 			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
-		
+			
 			
             //Ziel mit Bild
             else if(aktuellesBoard[y][x] === "z"){
@@ -116,6 +116,8 @@ function draw(){
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
 	else if (player.book == true)	//Wenn das Buch aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
+	else if (aktuelleSpielrunde++)	//Wenn das Buch aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);}
 
 	
 };
