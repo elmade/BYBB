@@ -53,7 +53,7 @@ var board2 = [
     [ "w", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
-    [ "w", "m", "w", "m", "b", "w", "m", "w", "m", "w"],
+    [ "w", "m", "w", "w", "b", "w", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "m", "m", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
@@ -123,18 +123,55 @@ function draw(){
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);}
 };
 
+function Buch() {
+	
+	if(aktuellesBoard[player.y][player.x] == "b") {
+		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
+		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch berührt wurde
+		buchSound.play();
+		//console.log("Buch gefunden");
+	};
+};
+
+
+function Ziel() {
+	if(aktuellesBoard[player.y][player.x] == "z") {
+		//Spieler hat Buch eingesammelt
+		if (player.book == true){
+		zielSound.play();
+		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
+		nochZeit = false;
+		console.log(nochZeit);
+		}
+		//Spieler hat Buch nicht eingesammelt
+		else {
+		zielSoundOhne.play();
+		alert("Wo ist das Buch?");
+		};
+		
+		//console.log("Spiel stoppen 1");
+		//Bybb.stop();
+		//Tick.stop();
+            //return;
+		//break;
+	
+	};
+//return;
+};
 
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
-	function canMove(x,y){
+function canMove(x,y){
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (y<0){return false;} //y darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
-		//else if (board[player.y][player.x] =="z" && player.book=true {return false;}
+		//else if (aktuellesBoard[player.y][player.x] =="z" && player.book=true {return false;}
+		
 		else if (aktuellesBoard[y][x] == "z"){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
-			aktuelleSpielrunde++; player.x=0; player.y=0; player.book = false, TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
+			aktuelleSpielrunde++; player.x=0; player.y=0; player.book = false, zielSound.play(), TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
 		else {return true;}	
+		Buch();
 	};
 
 
@@ -157,40 +194,9 @@ $(document).keyup(function(e){
 
 draw();
 
-function Buch() {
-	
-	if(board[player.y][player.x] == "b") {
-		board[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
-		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch berührt wurde
-		buchSound.play();
-		console.log("Buch gefunden");
-	};
-};
 
-function Ziel() {
-	if(board[player.y][player.x] == "z") {
-		//Spieler hat Buch eingesammelt
-		if (player.book == true){
-		zielSound.play();
-		//alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
-		nochZeit = false;
-		console.log(nochZeit);
-		}
-		//Spieler hat Buch nicht eingesammelt
-		else {
-		zielSoundOhne.play();
-		alert("Wo ist das Buch?");
-		};
-		
-		console.log("Spiel stoppen 1");
-		//Bybb.stop();
-		//Tick.stop();
-            //return;
-		//break;
-	
-	};
-//return;
-};
+
+
 
 
 
