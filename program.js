@@ -100,6 +100,9 @@ function draw(){
 			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
 			
+			//else if ((aktuellesBoard[y][x] === "b")&&(aktuelleSpielrunde === 1)){ 
+			//ctx.drawImage(document.getElementById('buch'), 50, 50, 50, 50) 
+			//}
 			
             //Ziel mit Bild
             else if(aktuellesBoard[y][x] === "z"){
@@ -116,10 +119,8 @@ function draw(){
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
 	else if (player.book == true)	//Wenn das Buch aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
-	else if (aktuelleSpielrunde++)	//Wenn das Buch aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if (player.book == false )	//Beginn weiterer Spielrunden: Tom ohne Bücher
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);}
-
-	
 };
 
 
@@ -132,7 +133,7 @@ function draw(){
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
 		//else if (board[player.y][player.x] =="z" && player.book=true {return false;}
 		else if (aktuellesBoard[y][x] == "z"){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
-			aktuelleSpielrunde++; player.x=0; player.y=0;clearTimeout;} //Ziel wird erkannt und neue Spielrunde geladen
+			aktuelleSpielrunde++; player.x=0; player.y=0; player.book = false, TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
 		else {return true;}	
 	};
 
