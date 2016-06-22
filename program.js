@@ -58,7 +58,7 @@ var board2 = [
     [ "w", "m", "w", "m", "w", "w", "w", "m", "w", "m"],
     [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "m"],
     [ "m", "m", "w", "w", "w", "m", "m", "w", "m", "m"],
-    [ "w", "m", "w", "m", "w", "w", "w", "m", "m", "w"],
+    [ "w", "m", "w", "m", "w", "w", "w", "w", "m", "w"],
     [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "y"]
 ];
 
@@ -68,9 +68,9 @@ var board2 = [
 player = {
     x: 0,
     y: 0,
-	book: false, //Spieler hat Buch noch nicht berührt
-	buch: false,
-	books: false
+	book: false, //Buch "b", Spieler hat Buch noch nicht berührt
+	buch: false, //Buch "h"
+	books: false // Buch "d"
 };
 
 //board wird durch "push" mit board2 in 2. Spielrunde ersetzt
@@ -127,18 +127,16 @@ function draw(){
 
    //Spieler wird gezeichnet
 
-	if (player.book == false) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
+	if ((player.book == false) && (player.buch == false) && (player.books == false)) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
-	else if (player.book == true)	//Wenn das Buch b aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if ((player.book == true) && (player.buch == false) && (player.books == false))	//Wenn das Buch b aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
-	else if (player.buch == true)	//Wenn das Buch h aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if ((player.buch == true) && (player.book == false) && (player.books == false))	//Wenn das Buch h aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
-	else if (player.book == false )	//Beginn weiterer Spielrunden: Tom ohne Bücher
-	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);}
-	else if (player.books == false )	//Beginn weiterer Spielrunden: Tom ohne Bücher
-	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);}
-	else if (player.books == true)	//Wenn das Buch h aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if ((player.books == true) && (player.book == false) && (player.buch == false))	//Wenn das Buch d aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
+	else if ((player.books == true) && (player.buch == true) && (player.book == false))
+		{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 };
 
 function Buch() {
@@ -214,7 +212,7 @@ function ZielZwei() {
 
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
 function canMove(x,y){
-	console.log("canMove : "+nochZeit);
+	//console.log("canMove : "+nochZeit);
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (y<0){return false;} //y darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (!nochZeit){return false;}	
@@ -305,7 +303,6 @@ function Tick() {
 	nochZeit = false;
 	console.log(nochZeit);
 	return; 
-	console.log("Spiel stoppen 2")
 }
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer()
