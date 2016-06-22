@@ -49,7 +49,7 @@ board = [
 
 var board2 = [
 
-	[ "w", "w", "w", "w", "w", "w", "m", "m", "m", "w"],
+	[ "w", "w", "w", "h", "w", "w", "m", "m", "m", "w"],
     [ "w", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
     [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
     [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
@@ -70,7 +70,7 @@ player = {
 	book: false //Spieler hat Buch noch nicht berührt
 };
 
-//board wird durch "push" mit board2 ersetzt in 2. Spielrunde
+//board wird durch "push" mit board2 in 2. Spielrunde ersetzt
 	Spielrunden.push(board);
 	Spielrunden.push(board2);
 
@@ -78,11 +78,11 @@ player = {
 function draw(){
 	aktuellesBoard = Spielrunden [aktuelleSpielrunde]; //board mit Gestaltung des Spielfeldes wird je nach Spielrunde anders gestaltet
 	//console.log("Karte malen")
-    var width = canvas.width; //Labyrinth passt sich der Breite des Canvas an
-    var blockSize = width/board[0].length; //Blockgröße ist abhängig von board
+    var width = canvas.width; 				//Labyrinth passt sich der Breite des Canvas an
+    var blockSize = width/board[0].length; 	//Blockgröße ist abhängig von board
     var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, width, width);
-    ctx.fillStyle="maroon"; //Farbe für Mauer
+    ctx.fillStyle="maroon"; 				//Farbe für Mauer
 	
 
 
@@ -100,9 +100,9 @@ function draw(){
 			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
 			
-			//else if ((aktuellesBoard[y][x] === "b")&&(aktuelleSpielrunde === 1)){ 
-			//ctx.drawImage(document.getElementById('buch'), 50, 50, 50, 50) 
-			//}
+			else if (aktuellesBoard[y][x] === "h"){ 
+			ctx.drawImage(document.getElementById('buch2'), 150, 0, 50, 50) 
+			}
 			
             //Ziel mit Bild
             else if(aktuellesBoard[y][x] === "z"){
@@ -125,12 +125,20 @@ function draw(){
 
 function Buch() {
 	
-	if(aktuellesBoard[player.y][player.x] == "b") {
+	if (aktuellesBoard[player.y][player.x] == "b") {
 		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
 		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch berührt wurde
 		buchSound.play();
 		//console.log("Buch gefunden");
-	};
+	}
+	
+	else if (aktuellesBoard[player.y][player.x] == "h") {
+		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
+		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch berührt wurde
+		buchSound.play();
+		//console.log("Buch gefunden");
+	}
+	
 };
 
 
@@ -168,12 +176,15 @@ function canMove(x,y){
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
 		//else if (aktuellesBoard[player.y][player.x] =="z" && player.book=true {return false;}
 		
-		else if (aktuellesBoard[y][x] == "z"){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
-			aktuelleSpielrunde++; player.x=0; player.y=0; player.book = false, zielSound.play(), TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
+		else if ((aktuellesBoard[y][x] == "z") && (player.book == true)){Ziel();
+		aktuelleSpielrunde++; player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
 		else {return true;}	
 		Buch();
 	};
+	
+//zielSound.play() alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
 
+	
 
 $(document).keyup(function(e){
     if((e.which == 38) && canMove(player.x, player.y-1))//Pfeiltaste nach oben
@@ -193,11 +204,6 @@ $(document).keyup(function(e){
 
 
 draw();
-
-
-
-
-
 
 
 //Sound-Objekt, legt Eigenschaften der Sounds fest und ermöglicht dem Programm mit Sounds umzugehen
@@ -280,5 +286,6 @@ clearTimeout();
 
 };
 
-}
 
+}
+else if (Bybb.stopp);
