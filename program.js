@@ -1,6 +1,6 @@
 var	nochZeit = true;				
 
-if (nochZeit == true){					
+			
 function Bybb(){
 	
 
@@ -214,8 +214,10 @@ function ZielZwei() {
 
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
 function canMove(x,y){
+	console.log("canMove : "+nochZeit);
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (y<0){return false;} //y darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
+		else if (!nochZeit){return false;}	
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
@@ -299,11 +301,11 @@ function Tick() {
 	
 	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
 	loseSound.play();						
-alert("Oh nein! Die Leihfrist ist abgelaufen!");
-nochZeit = false;
-console.log(nochZeit);
-return; 
-console.log("Spiel stoppen 2")
+	alert("Oh nein! Die Leihfrist ist abgelaufen!");
+	nochZeit = false;
+	console.log(nochZeit);
+	return; 
+	console.log("Spiel stoppen 2")
 }
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer()
@@ -336,6 +338,3 @@ clearTimeout();
 
 };
 
-
-}
-else if (Bybb.stopp);
