@@ -86,7 +86,7 @@ function draw(){
 	
 
 
- //Schleife durch Array für das Zeichnen der Wände und des Ziels
+ //Schleife durch Array für das Zeichnen der Wände, Gegenstände und des Ziels
     for(var y = 0; y < board.length; y++){ //Schleife beginnt links oben im Spielfeld, läuft durch Array, Endposition ist unten rechts im Spielfeld
         for(var x = 0; x < board[y].length; x++){
             //Mauer wird gezeichnet
@@ -100,6 +100,7 @@ function draw(){
 			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
 			
+			//weiterer Gegenstand zum Aufsammeln in Spielrunde 2
 			else if (aktuellesBoard[y][x] === "h"){ 
 			ctx.drawImage(document.getElementById('buch2'), 150, 0, 50, 50) 
 			}
@@ -175,9 +176,14 @@ function canMove(x,y){
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
 		//else if (aktuellesBoard[player.y][player.x] =="z" && player.book=true {return false;}
-		
-		else if ((aktuellesBoard[y][x] == "z") && (player.book == true)){Ziel();
-		aktuelleSpielrunde++; player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
+			//Ziel Runde 1
+		else if ((board[y][x] == "z") && (player.book == true)){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek. Weiter geht es mit der nächsten Runde!");
+		//for (aktuelleSpielrunde<=1; aktuelleSpielrunde++){ player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}} //Ziel wird erkannt und neue Spielrunde geladen
+		zielSound.play(); aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
+			//Ziel Runde 2
+		else if ((board2[y][x] == "z") && (player.book == true)){Ziel();}
+		//else if ((aktuellesBoard[y][x] == "z") && (player.book == true)){Ziel();
+		//aktuelleSpielrunde++; player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
 		else {return true;}	
 		Buch();
 	};
