@@ -23,6 +23,7 @@ function Bybb(){
 	var backgroundMusik;
 	var buchSound;
 	var zielSoundOhne;
+	var ZielZwei;
 	
 //mehrere Spielrunden
 	var Spielrunden = new Array (); //Arrays der verschiedenen Spielrunden (im Folgenden einzeln benannt mit board, board2)
@@ -32,7 +33,7 @@ function Bybb(){
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
 
 
-//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch, h = 2. Buch
+//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch, h = 2. Buch, d = 3. Buch
 board = [
 
 	[ "w", "m", "w", "w", "m", "w", "m", "m", "m", "w"],
@@ -53,12 +54,12 @@ var board2 = [
     [ "m", "w", "m", "m", "m", "m", "m", "w", "m", "m"],
     [ "w", "w", "w", "w", "w", "w", "w", "w", "w", "m"],
     [ "w", "m", "m", "w", "m", "m", "w", "m", "w", "m"],
-    [ "w", "m", "w", "w", "b", "m", "w", "m", "w", "w"],
+    [ "w", "m", "w", "w", "d", "m", "w", "m", "w", "w"],
     [ "w", "m", "w", "m", "w", "w", "w", "m", "w", "m"],
     [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "m"],
     [ "m", "m", "w", "w", "w", "m", "m", "w", "m", "m"],
     [ "w", "m", "w", "m", "w", "w", "w", "m", "m", "w"],
-    [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "z"]
+    [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "y"]
 ];
 
 
@@ -67,7 +68,9 @@ var board2 = [
 player = {
     x: 0,
     y: 0,
-	book: false //Spieler hat Buch noch nicht berührt
+	book: false, //Spieler hat Buch noch nicht berührt
+	buch: false,
+	books: false
 };
 
 //board wird durch "push" mit board2 in 2. Spielrunde ersetzt
@@ -105,8 +108,16 @@ function draw(){
 			ctx.drawImage(document.getElementById('buch2'), 200, 0, 50, 50) 
 			}
 			
+			else if(aktuellesBoard[y][x] === "d"){ 
+			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)  
+			}
+			
             //Ziel mit Bild
             else if(aktuellesBoard[y][x] === "z"){
+                ctx.drawImage(document.getElementById('library'), 530, 530, 75, 75);
+				 }
+				 
+			else if(aktuellesBoard[y][x] === "y"){
                 ctx.drawImage(document.getElementById('library'), 530, 530, 75, 75);
 				 };
         };
@@ -118,26 +129,39 @@ function draw(){
 
 	if (player.book == false) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
-	else if (player.book == true)	//Wenn das Buch aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if (player.book == true)	//Wenn das Buch b aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
+	else if (player.buch == true)	//Wenn das Buch h aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 	else if (player.book == false )	//Beginn weiterer Spielrunden: Tom ohne Bücher
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);}
+	else if (player.books == false )	//Beginn weiterer Spielrunden: Tom ohne Bücher
+	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);}
+	else if (player.books == true)	//Wenn das Buch h aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 };
 
 function Buch() {
 	
 	if (aktuellesBoard[player.y][player.x] == "b") {
 		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
-		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch berührt wurde
+		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch b berührt wurde
 		buchSound.play();
-		//console.log("Buch gefunden");
+		console.log("Buch b gefunden");
 	}
 	
 	else if (aktuellesBoard[player.y][player.x] == "h") {
-		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
-		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch berührt wurde
+		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "h" durch "w" ersetzt
+		player.buch=true;//Spieler wird Merkmal übermittelt, dass das Buch h berührt wurde
 		buchSound.play();
-		//console.log("Buch gefunden");
+		console.log("Buch h gefunden");
+	}
+	
+	else if (aktuellesBoard[player.y][player.x] == "d") {
+		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "d" durch "w" ersetzt
+		player.books=true;//Spieler wird Merkmal übermittelt, dass das Buch d berührt wurde
+		buchSound.play();
+		console.log("Buch d gefunden");
 	}
 	
 };
@@ -168,6 +192,26 @@ function Ziel() {
 //return;
 };
 
+function ZielZwei() {
+	if(aktuellesBoard[player.y][player.x] == "y") {
+		//Spieler hat Buch eingesammelt
+		if (player.books == true && player.buch == true){
+		zielSound.play();
+		alert("Du hast es geschafft! Die Bücher sind rechtzeitig in der Bibliothek.");
+		nochZeit = false;
+		console.log(nochZeit);
+		}
+		//Spieler hat Buch nicht eingesammelt oder eines fehlt
+		else {
+		zielSoundOhne.play();
+		alert("Es fehlen noch Bücher!");
+		};
+		
+	
+	};
+	
+}
+
 //Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
 function canMove(x,y){
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
@@ -181,10 +225,9 @@ function canMove(x,y){
 		//for (aktuelleSpielrunde<=1; aktuelleSpielrunde++){ player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}} //Ziel wird erkannt und neue Spielrunde geladen
 		zielSound.play(); aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
 			//Ziel Runde 2
-		else if ((board2[y][x] == "z") && (player.book == true)){Ziel();}
-		//else if ((aktuellesBoard[y][x] == "z") && (player.book == true)){Ziel();
-		//aktuelleSpielrunde++; player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
-		else {return true;}	
+		else if ((board2[y][x] == "y") && (player.books == true) && (player.buch == true)){alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); ZielZwei();
+		zielSound.play(); aktuelleSpielrunde++; player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;} //Ziel wird erkannt und neue Spielrunde geladen
+		else {return true;};	
 		Buch();
 	};
 	
@@ -204,6 +247,7 @@ $(document).keyup(function(e){
     draw(); //nach jedem Tastenanschlag wird das Layrinth neu gezeichnet
 	Ziel();	//die Zielfunktion wird immer wieder neu angesprochen
 	Buch();	//die Buchfunktion auch
+	ZielZwei(); //die Zielfunktion für das zweite Level wird aufgerufen
     e.preventDefault(); //übliche Tastenfunktion wird verhindert z. B. scrollen mit Pfeiltasten 
 	});
 
