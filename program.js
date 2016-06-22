@@ -32,7 +32,7 @@ function Bybb(){
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
 
 
-//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch
+//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch, h = 2. Buch
 board = [
 
 	[ "w", "m", "w", "w", "m", "w", "m", "m", "m", "w"],
@@ -49,16 +49,16 @@ board = [
 
 var board2 = [
 
-	[ "w", "w", "w", "h", "w", "w", "m", "m", "m", "w"],
-    [ "w", "m", "m", "w", "m", "w", "w", "w", "w", "w"],
-    [ "w", "w", "w", "w", "m", "m", "w", "m", "m", "w"],
-    [ "m", "m", "w", "m", "m", "w", "w", "w", "m", "w"],
-    [ "w", "m", "w", "w", "b", "w", "m", "w", "m", "w"],
-    [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
-    [ "w", "m", "w", "m", "m", "m", "w", "w", "w", "w"],
-    [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
-    [ "m", "m", "m", "w", "m", "m", "m", "m", "m", "w"],
-    [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "z"]
+	[ "w", "w", "m", "h", "w", "w", "w", "w", "w", "w"],
+    [ "m", "w", "m", "m", "m", "m", "m", "w", "m", "m"],
+    [ "w", "w", "w", "w", "w", "w", "w", "w", "w", "m"],
+    [ "w", "m", "m", "w", "m", "m", "w", "m", "w", "m"],
+    [ "w", "m", "w", "w", "b", "m", "w", "m", "w", "w"],
+    [ "w", "m", "w", "m", "w", "w", "w", "m", "w", "m"],
+    [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "m"],
+    [ "m", "m", "w", "w", "w", "m", "m", "w", "m", "m"],
+    [ "w", "m", "w", "m", "w", "w", "w", "m", "m", "w"],
+    [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "z"]
 ];
 
 
@@ -102,7 +102,7 @@ function draw(){
 			
 			//weiterer Gegenstand zum Aufsammeln in Spielrunde 2
 			else if (aktuellesBoard[y][x] === "h"){ 
-			ctx.drawImage(document.getElementById('buch2'), 150, 0, 50, 50) 
+			ctx.drawImage(document.getElementById('buch2'), 200, 0, 50, 50) 
 			}
 			
             //Ziel mit Bild
