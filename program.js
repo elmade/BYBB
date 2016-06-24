@@ -241,13 +241,7 @@ function canMove(x,y){
 				} //Ziel wird erkannt
 
 		
-			//Ziel Runde 1
-		else if ((board[y][x] == "z") && (player.book == true)){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek. Weiter geht es mit der nächsten Runde!");
-		//for (aktuelleSpielrunde<=1; aktuelleSpielrunde++){ player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}} //Ziel wird erkannt und neue Spielrunde geladen
-		zielSound.play(); aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
-			//Ziel Runde 2
-		else if ((board2[y][x] == "y") && (player.books == true) && (player.buch == true)){alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); ZielZwei();
-		zielSound.play(); aktuelleSpielrunde++; nochZeit= false; alert("Ende");} //Ziel wird erkannt und neue Spielrunde geladen
+		// aktuelleSpielrunde++;  alert("Ende");}
 
 		else {return true;};	
 		Buch();
@@ -300,7 +294,6 @@ function sound(src) {
 //Countdown
 var Timer;
 var TotalSeconds;
-//var nochZeit = true;
 
 function CreateTimer(TimerID, Time) {
 Timer = document.getElementById(TimerID);
@@ -309,8 +302,6 @@ TotalSeconds = Time;
 UpdateTimer()
 window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funktion wird jede Sekunde einmal aufgerufen
 }
-
-
 
 
 
