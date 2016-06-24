@@ -1,41 +1,42 @@
-var	nochZeit = true;		
+var	nochZeit = true;		//globale Variablen für Timer-/Bybb-Funktion
 var imZiel = false;		
 
 			
 function Bybb(){
 	
-
-	
 	CreateTimer("timer", 25);		//Countdown wird erstellt, Sekundenanzahl festgelegt
-	zielSound = new sound("cheering.mp3");		//Sound beim Erreichen des Ziels, Datei wird verknüpft
-	backgroundMusik = new sound("background.wav"); 	//Hintergrundmusik, wird verknüpft
+	zielSound = new sound("cheering.mp3");			//Sound beim Erreichen des Ziels, Datei wird verknüpft
+	backgroundMusik = new sound("background.wav"); 	//Hintergrundmusik, Verknüpfung
     backgroundMusik.play();							//Hintergrundmusik wird abgespielt
 	buchSound = new sound("ping.mp3");				//Sound beim Einsammeln des Buchs, Verknüpfung
 	zielSoundOhne = new sound ("becken.mp3");		//Sound beim Erreichen des Ziels ohne Buch, Verknüpfung
 	
 	
 	
-	var canvas; //Variable für Spielfeld
-	var board; //Variable für Labyrinth
-	var player; //Variable für Spieler
-	var Ziel;
-	var ZielZwei;
-	var Buch;
-	var zielSound;
-	var backgroundMusik;
-	var buchSound;
-	var zielSoundOhne;
+	var canvas; 	//Variable für Spielfeld
+	var board; 		//Variable für Labyrinth
+	var player; 	//Variable für Spieler
+	var Ziel;		//Variable für Ziel in 1. Runde
+	var ZielZwei;	//Variable für Ziel in 2. Runde
+	var Buch;		//Variable zur Bucherkennung
+	var zielSound;	//Variable für den Zielsound
+	var backgroundMusik;	//Variable für die Hintergrundmusik
+	var buchSound;			//Variable für Sound, wenn Buch aufgesammelt wird
+	var zielSoundOhne;		//Variable für Sound, wenn Ziel ohne Buch erreicht wird
 	
 	
 //mehrere Spielrunden
 	var Spielrunden = new Array (); //Arrays der verschiedenen Spielrunden (im Folgenden einzeln benannt mit board, board2)
-	var aktuelleSpielrunde = 0; //1. Spielrunde entspricht 0
-	var aktuellesBoard; //spricht derzeitiges board der jeweiligen Spielrunde an
+	var aktuelleSpielrunde = 0; 	//1. Spielrunde entspricht 0
+	var aktuellesBoard; 			//spricht derzeitiges board/derzeitigen Array der jeweiligen Spielrunde an
 
+//Canvas
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
 
 
 //Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch, h = 2. Buch, d = 3. Buch
+
+//Labyrinth der ersten Spielrunde
 board = [
 
 	[ "w", "m", "w", "w", "m", "w", "m", "m", "m", "w"],
@@ -50,6 +51,7 @@ board = [
     [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "z"]
 ];
 
+//Labyrinth der zweiten Spielrunde
 var board2 = [
 
 	[ "w", "w", "m", "h", "w", "w", "w", "w", "w", "w"],
@@ -64,15 +66,13 @@ var board2 = [
     [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "y"]
 ];
 
-
-
 //Startposition des Spielers
 player = {
     x: 0,
     y: 0,
 	book: false, //Buch "b", Spieler hat Buch noch nicht berührt
 	buch: false, //Buch "h"
-	books: false // Buch "d"
+	books: false //Buch "d"
 };
 
 //board wird durch "push" mit board2 in 2. Spielrunde ersetzt
@@ -81,8 +81,8 @@ player = {
 
 //Labyrinth zeichnen
 function draw(){
-	aktuellesBoard = Spielrunden [aktuelleSpielrunde]; //board mit Gestaltung des Spielfeldes wird je nach Spielrunde anders gestaltet
 	//console.log("Karte malen")
+	aktuellesBoard = Spielrunden [aktuelleSpielrunde]; //board/Spielfeld wird je nach Spielrunde anders gestaltet
     var width = canvas.width; 				//Labyrinth passt sich der Breite des Canvas an
     var blockSize = width/board[0].length; 	//Blockgröße ist abhängig von board
     var ctx = canvas.getContext('2d');
@@ -92,20 +92,20 @@ function draw(){
 
 
  //Schleife durch Array für das Zeichnen der Wände, Gegenstände und des Ziels
-    for(var y = 0; y < board.length; y++){ //Schleife beginnt links oben im Spielfeld, läuft durch Array, Endposition ist unten rechts im Spielfeld
+    for(var y = 0; y < board.length; y++){ 		//Schleife beginnt links oben im Spielfeld, läuft durch Array, Endposition ist unten rechts im Spielfeld
         for(var x = 0; x < board[y].length; x++){
-            //Mauer wird gezeichnet
-            if(aktuellesBoard[y][x] === "m"){ //da Gestaltung des Spielfeldes je nach Spielrunde werden board und board2 nicht extra angesprochen, 
-												//sonden über die gemeinsame Variabel "aktuellesBoard"
+            //Mauer
+            if(aktuellesBoard[y][x] === "m"){ //da Gestaltung des Spielfeldes je nach Spielrunde varriert, werden board und board2 nicht extra angesprochen, 
+												//sonden über die gemeinsame Variable "aktuellesBoard" angesprochen
 				ctx.fillStyle = "maroon"
                 ctx.fillRect(x*blockSize, y*blockSize, blockSize, blockSize);
             }
-			//Buch mit Bild
+			
+			//Bücher
 			else if(aktuellesBoard[y][x] === "b"){ 
 			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)   //X- und Y-Koordinaten, sowie Angaben zur Bildgröße: Breite, Höhe
 			}
-			
-			//weiterer Gegenstand zum Aufsammeln in Spielrunde 2
+		
 			else if (aktuellesBoard[y][x] === "h"){ 
 			ctx.drawImage(document.getElementById('buch2'), 200, 0, 50, 50) 
 			}
@@ -114,21 +114,19 @@ function draw(){
 			ctx.drawImage(document.getElementById('buch'), 250, 250, 50, 50)  
 			}
 			
-            //Ziel mit Bild
+            //Ziel
             else if(aktuellesBoard[y][x] === "z"){
-                ctx.drawImage(document.getElementById('library1'), 530, 530, 60, 75);
+                ctx.drawImage(document.getElementById('library1'), 545, 530, 60, 75);
 				 }
 				 
 			else if(aktuellesBoard[y][x] === "y"){
                 ctx.drawImage(document.getElementById('library'), 530, 530, 75, 75);
 				 };
         };
-    
 	};
 
 
    //Spieler wird gezeichnet
-
 	if ((player.book == false) && (player.buch == false) && (player.books == false)) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
 	else if ((player.book == true) && (player.buch == false) && (player.books == false))	//Wenn das Buch b aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
@@ -141,29 +139,30 @@ function draw(){
 		{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 };
 
+
+
 function Buch() {
 	
 	if (aktuellesBoard[player.y][player.x] == "b") {
-		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "b" durch "w" ersetzt
-		player.book=true; //Spieler wird Merkmal übermittelt, dass das Buch b berührt wurde
+		aktuellesBoard[player.y][player.x] = "w"; //wenn der Spieler das Buch berührt, wird im Array "b" durch "w" ersetzt
+		player.book=true; 	//Spieler wird Merkmal übermittelt, dass das Buch b berührt wurde
 		buchSound.play();
-		console.log("Buch b gefunden");
+		//console.log("Buch b gefunden");
 	}
 	
 	else if (aktuellesBoard[player.y][player.x] == "h") {
-		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "h" durch "w" ersetzt
-		player.buch=true;//Spieler wird Merkmal übermittelt, dass das Buch h berührt wurde
+		aktuellesBoard[player.y][player.x] = "w"; //wenn Buch berührt wird, wird im Array "h" durch "w" ersetzt
+		player.buch=true;	//Spieler wird Merkmal übermittelt, dass das Buch h berührt wurde
 		buchSound.play();
-		console.log("Buch h gefunden");
+		//console.log("Buch h gefunden");
 	}
 	
 	else if (aktuellesBoard[player.y][player.x] == "d") {
-		aktuellesBoard[player.y][player.x]="w"; //wenn Buch berührt wird, wird im Array "d" durch "w" ersetzt
+		aktuellesBoard[player.y][player.x] = "w"; //wenn Buch berührt wird, wird im Array "d" durch "w" ersetzt
 		player.books=true;//Spieler wird Merkmal übermittelt, dass das Buch d berührt wurde
 		buchSound.play();
-		console.log("Buch d gefunden");
+		//console.log("Buch d gefunden");
 	}
-	
 };
 
 
@@ -172,24 +171,14 @@ function Ziel() {
 		//Spieler hat Buch eingesammelt
 		if (player.book == true){
 		zielSound.play();
-		alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
 		nochZeit = false;
-		console.log(nochZeit);
 		}
 		//Spieler hat Buch nicht eingesammelt
 		else {
 		zielSoundOhne.play();
 		alert("Wo ist das Buch?");
 		};
-		
-		//console.log("Spiel stoppen 1");
-		//Bybb.stop();
-		//Tick.stop();
-            //return;
-		//break;
-	
 	};
-//return;
 };
 
 function ZielZwei() {
@@ -197,7 +186,6 @@ function ZielZwei() {
 		//Spieler hat Buch eingesammelt
 		if (player.books == true && player.buch == true){
 		zielSound.play();
-		alert("Du hast es geschafft! Die Bücher sind rechtzeitig in der Bibliothek.");
 		nochZeit = false;
 		imZiel = true;
 		console.log(nochZeit);
@@ -213,7 +201,7 @@ function ZielZwei() {
 	
 }
 
-//Überprüfung, ob Rand, Mauer oder außerhalb des Spielfelds
+//Überprüfung, ob Rand, Mauer, Ziel oder außerhalb des Spielfelds
 function canMove(x,y){
 	//console.log("canMove : "+nochZeit);
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
@@ -223,23 +211,19 @@ function canMove(x,y){
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
-		//else if (aktuellesBoard[player.y][player.x] =="z" && player.book=true {return false;}
 			//Ziel Runde 1
 		else if ((board[y][x] == "z") && (player.book == true)){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek. Weiter geht es mit der nächsten Runde!");
-		//for (aktuelleSpielrunde<=1; aktuelleSpielrunde++){ player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}} //Ziel wird erkannt und neue Spielrunde geladen
 		zielSound.play(); aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
 			//Ziel Runde 2
 		else if ((board2[y][x] == "y") && (player.books == true) && (player.buch == true)){alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); ZielZwei();
 		zielSound.play(); aktuelleSpielrunde++; nochZeit= false; alert("Ende");} //Ziel wird erkannt und neue Spielrunde geladen
 		else {return true;};	
-		Buch();
-		
+		Buch();	
 	};
 	
-//zielSound.play() alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
 
 	
-
+//Tastensteuerung
 $(document).keyup(function(e){
     if((e.which == 38) && canMove(player.x, player.y-1))//Pfeiltaste nach oben
         player.y--; //y wird um eins verringert, Spieler bewegt sich nach oben
@@ -249,13 +233,14 @@ $(document).keyup(function(e){
         player.x--; //x wird um eins verringert, Spieler bewegt sich nach links
     else if((e.which == 39) && canMove(player.x+1, player.y)) //Pfeiltaste rechts
         player.x++; //x wird um eins vergrößert, Spieler bewegt sich nach rechts
-    draw(); //nach jedem Tastenanschlag wird das Layrinth neu gezeichnet
-	Ziel();	//die Zielfunktion wird immer wieder neu angesprochen
-	Buch();	//die Buchfunktion auch
-	ZielZwei(); //die Zielfunktion für das zweite Level wird aufgerufen
+		
+	//nach jedem Tastenschlag werden folgende Funktionen neu gezeichnet:
+    draw(); //Layrinth zeichnen
+	Ziel();	//Zielfunktion
+	Buch();	//Buchfunktion
+	ZielZwei(); //Zielfunktion für die zweite Spielrunde
     e.preventDefault(); //übliche Tastenfunktion wird verhindert z. B. scrollen mit Pfeiltasten 
 	});
-
 
 
 draw();
@@ -276,15 +261,13 @@ function sound(src) {
         this.sound.pause();
     }
 };
-
-};
+}; // Ende der Bybb-Funktion
 
 
 
 //Countdown
 var Timer;
 var TotalSeconds;
-//var nochZeit = true;
 
 function CreateTimer(TimerID, Time) {
 Timer = document.getElementById(TimerID);
@@ -299,17 +282,16 @@ window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funkt
 
 
 function Tick() {
-	loseSound = new sound ("ohhh.mp3");						//Sound beim Ablauf der Zeit, Verknüpung
+	loseSound = new sound ("ohhh.mp3");		//Sound beim Ablauf der Zeit, Verknüpung
 	var loseSound;
 	
 	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
 	loseSound.play();						
 	alert("Oh nein! Die Leihfrist ist abgelaufen!");
 	nochZeit = false;
-	console.log(nochZeit);
 	return;  
+	}
 
-}
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer();
 window.setTimeout("Tick()", 1000);
@@ -335,8 +317,3 @@ function sound(src) {
 function UpdateTimer() {
 Timer.innerHTML = TotalSeconds;
 }
-
-function stopTimer(){
-clearTimeout();
-
-};
