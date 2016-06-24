@@ -1,5 +1,5 @@
-var	nochZeit = true; //globale Variablen, die für die Timer-/Bybb-Funktion gebraucht werden
-var imZiel = false;				
+var	nochZeit = true;		
+var imZiel = false;		
 
 			
 function Bybb(){
@@ -19,12 +19,13 @@ function Bybb(){
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
 	var Ziel;
+	var ZielZwei;
 	var Buch;
 	var zielSound;
 	var backgroundMusik;
 	var buchSound;
 	var zielSoundOhne;
-	var ZielZwei;
+	
 	
 //mehrere Spielrunden
 	var Spielrunden = new Array (); //Arrays der verschiedenen Spielrunden (im Folgenden einzeln benannt mit board, board2)
@@ -115,7 +116,7 @@ function draw(){
 			
             //Ziel mit Bild (für beide Spielrunden)
             else if(aktuellesBoard[y][x] === "z"){
-                ctx.drawImage(document.getElementById('library'), 530, 530, 75, 75);
+                ctx.drawImage(document.getElementById('library1'), 530, 530, 60, 75);
 				 }
 				 
 			else if(aktuellesBoard[y][x] === "y"){
@@ -197,9 +198,15 @@ function ZielZwei() {
 		if (player.books == true && player.buch == true){
 		zielSound.play();
 		alert("Du hast es geschafft! Die Bücher sind rechtzeitig in der Bibliothek.");
+<<<<<<< HEAD
 		imZiel = true;
 		//nochZeit = false;
 		//console.log(nochZeit);
+=======
+		nochZeit = false;
+		imZiel = true;
+		console.log(nochZeit);
+>>>>>>> origin/master
 		}
 		//Spieler hat Buch nicht eingesammelt oder eines fehlt
 		else {
@@ -216,10 +223,12 @@ function ZielZwei() {
 function canMove(x,y){
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (y<0){return false;} //y darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
-		else if (!nochZeit){return false;}	
+		else if (!nochZeit){return false;}
+		else if (imZiel) {return false;}
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
+<<<<<<< HEAD
 
 		//Ziel Runde 1
 		else if ((board[y][x] == "z") && (player.book == true))
@@ -236,9 +245,25 @@ function canMove(x,y){
 				nochZeit = false;
 				console.log(nochZeit);
 				} //Ziel wird erkannt
+=======
+		//else if (aktuellesBoard[player.y][player.x] =="z" && player.book=true {return false;}
+			//Ziel Runde 1
+		else if ((board[y][x] == "z") && (player.book == true)){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek. Weiter geht es mit der nächsten Runde!");
+		//for (aktuelleSpielrunde<=1; aktuelleSpielrunde++){ player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}} //Ziel wird erkannt und neue Spielrunde geladen
+		zielSound.play(); aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
+			//Ziel Runde 2
+		else if ((board2[y][x] == "y") && (player.books == true) && (player.buch == true)){alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); ZielZwei();
+		zielSound.play(); aktuelleSpielrunde++; nochZeit= false; alert("Ende");} //Ziel wird erkannt und neue Spielrunde geladen
+>>>>>>> origin/master
 		else {return true;};	
 		Buch();
+		
 	};
+<<<<<<< HEAD
+=======
+	
+//zielSound.play() alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
+>>>>>>> origin/master
 
 	
 
@@ -304,22 +329,30 @@ function Tick() {
 	loseSound = new sound ("ohhh.mp3");						//Sound beim Ablauf der Zeit, Verknüpfung
 	var loseSound;
 	
+<<<<<<< HEAD
 	//prüfen, ob Spiel noch läuft
 	//if (imZiel = false) {
 	
 	
+=======
+>>>>>>> origin/master
 	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
 	loseSound.play();						
 	alert("Oh nein! Die Leihfrist ist abgelaufen!");
 	nochZeit = false;
 	console.log(nochZeit);
+<<<<<<< HEAD
 	
 	
 	return; 
 	//}
+=======
+	return;  
+
+>>>>>>> origin/master
 }
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
-UpdateTimer()
+UpdateTimer();
 window.setTimeout("Tick()", 1000);
 
 //2. Soundobjekt für die Timer-Funktion
@@ -348,4 +381,3 @@ function stopTimer(){
 clearTimeout();
 
 };
-
