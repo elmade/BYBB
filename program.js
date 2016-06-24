@@ -1,5 +1,5 @@
-var	nochZeit = true; //globale Variablen, die für die Timer-/Bybb-Funktion gebraucht werden
-var imZiel = false;				
+var	nochZeit = true;		
+var imZiel = false;		
 
 			
 function Bybb(){
@@ -19,12 +19,13 @@ function Bybb(){
 	var board; //Variable für Labyrinth
 	var player; //Variable für Spieler
 	var Ziel;
+	var ZielZwei;
 	var Buch;
 	var zielSound;
 	var backgroundMusik;
 	var buchSound;
 	var zielSoundOhne;
-	var ZielZwei;
+	
 	
 //mehrere Spielrunden
 	var Spielrunden = new Array (); //Arrays der verschiedenen Spielrunden (im Folgenden einzeln benannt mit board, board2)
@@ -115,7 +116,7 @@ function draw(){
 			
             //Ziel mit Bild
             else if(aktuellesBoard[y][x] === "z"){
-                ctx.drawImage(document.getElementById('library'), 530, 530, 75, 75);
+                ctx.drawImage(document.getElementById('library1'), 530, 530, 60, 75);
 				 }
 				 
 			else if(aktuellesBoard[y][x] === "y"){
@@ -197,8 +198,8 @@ function ZielZwei() {
 		if (player.books == true && player.buch == true){
 		zielSound.play();
 		alert("Du hast es geschafft! Die Bücher sind rechtzeitig in der Bibliothek.");
-		imZiel = true;
 		nochZeit = false;
+		imZiel = true;
 		console.log(nochZeit);
 		}
 		//Spieler hat Buch nicht eingesammelt oder eines fehlt
@@ -217,7 +218,8 @@ function canMove(x,y){
 	//console.log("canMove : "+nochZeit);
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (y<0){return false;} //y darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
-		else if (!nochZeit){return false;}	
+		else if (!nochZeit){return false;}
+		else if (imZiel) {return false;}
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
@@ -228,11 +230,12 @@ function canMove(x,y){
 		zielSound.play(); aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
 			//Ziel Runde 2
 		else if ((board2[y][x] == "y") && (player.books == true) && (player.buch == true)){alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); ZielZwei();
-		zielSound.play(); } //Ziel wird erkannt und neue Spielrunde geladen
+		zielSound.play(); aktuelleSpielrunde++; nochZeit= false; alert("Ende");} //Ziel wird erkannt und neue Spielrunde geladen
 		else {return true;};	
 		Buch();
+		
 	};
-//aktuelleSpielrunde++; player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;	
+	
 //zielSound.play() alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek.");
 
 	
@@ -299,22 +302,16 @@ function Tick() {
 	loseSound = new sound ("ohhh.mp3");						//Sound beim Ablauf der Zeit, Verknüpung
 	var loseSound;
 	
-	//prüfen, ob Spiel noch läuft
-	if (imZiel = false) {
-	
-	
 	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
 	loseSound.play();						
 	alert("Oh nein! Die Leihfrist ist abgelaufen!");
 	nochZeit = false;
 	console.log(nochZeit);
-	
-	
-	return; 
-	}
+	return;  
+
 }
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
-UpdateTimer()
+UpdateTimer();
 window.setTimeout("Tick()", 1000);
 
 //2. Soundobjekt für die Timer-Funktion
@@ -343,4 +340,3 @@ function stopTimer(){
 clearTimeout();
 
 };
-
