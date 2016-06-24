@@ -1,4 +1,4 @@
-var	nochZeit = true;		//globale Variablen für Timer-/Bybb-Funktion
+var	nochZeit = true;	//globale Variablen für Timer-/Bybb-Funktion	
 var imZiel = false;		
 
 			
@@ -6,7 +6,7 @@ function Bybb(){
 	
 	CreateTimer("timer", 25);		//Countdown wird erstellt, Sekundenanzahl festgelegt
 	zielSound = new sound("cheering.mp3");			//Sound beim Erreichen des Ziels, Datei wird verknüpft
-	backgroundMusik = new sound("background.wav"); 	//Hintergrundmusik, Verknüpfung
+	backgroundMusik = new sound("background.mp3"); 	//Hintergrundmusik, Verknüfung
     backgroundMusik.play();							//Hintergrundmusik wird abgespielt
 	buchSound = new sound("ping.mp3");				//Sound beim Einsammeln des Buchs, Verknüpfung
 	zielSoundOhne = new sound ("becken.mp3");		//Sound beim Erreichen des Ziels ohne Buch, Verknüpfung
@@ -33,7 +33,6 @@ function Bybb(){
 //Canvas
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
 
-
 //Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch, h = 2. Buch, d = 3. Buch
 
 //Labyrinth der ersten Spielrunde
@@ -46,12 +45,13 @@ board = [
     [ "w", "m", "w", "m", "b", "w", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "w", "m", "m", "w", "m", "w"],
     [ "w", "m", "w", "m", "m", "m", "w", "w", "w", "w"],
-    [ "w", "w", "w", "w", "w", "w", "w", "m", "m", "w"],
+    [ "w", "w", "w", "w", "w", "w", "w", "m", "w", "w"],
     [ "m", "m", "m", "w", "m", "m", "m", "m", "m", "w"],
     [ "m", "w", "w", "w", "w", "w", "w", "w", "m", "z"]
 ];
 
 //Labyrinth der zweiten Spielrunde
+
 var board2 = [
 
 	[ "w", "w", "m", "h", "w", "w", "w", "w", "w", "w"],
@@ -66,6 +66,7 @@ var board2 = [
     [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "y"]
 ];
 
+
 //Startposition des Spielers
 player = {
     x: 0,
@@ -78,7 +79,8 @@ player = {
 //board wird durch "push" mit board2 in 2. Spielrunde ersetzt
 	Spielrunden.push(board);
 	Spielrunden.push(board2);
-
+	
+	
 //Labyrinth zeichnen
 function draw(){
 	//console.log("Karte malen")
@@ -89,9 +91,8 @@ function draw(){
     ctx.clearRect(0, 0, width, width);
     ctx.fillStyle="maroon"; 				//Farbe für Mauer
 	
-
-
- //Schleife durch Array für das Zeichnen der Wände, Gegenstände und des Ziels
+	
+//Schleife durch Array für das Zeichnen der Wände, Gegenstände und des Ziels
     for(var y = 0; y < board.length; y++){ 		//Schleife beginnt links oben im Spielfeld, läuft durch Array, Endposition ist unten rechts im Spielfeld
         for(var x = 0; x < board[y].length; x++){
             //Mauer
@@ -126,7 +127,8 @@ function draw(){
 	};
 
 
-   //Spieler wird gezeichnet
+   //Spieler wird gezeichnet (mit und ohne Büchern)
+
 	if ((player.book == false) && (player.buch == false) && (player.books == false)) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
 	else if ((player.book == true) && (player.buch == false) && (player.books == false))	//Wenn das Buch b aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
@@ -138,7 +140,6 @@ function draw(){
 	else if ((player.books == true) && (player.buch == true) && (player.book == false))
 		{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 };
-
 
 
 function Buch() {
@@ -181,6 +182,7 @@ function Ziel() {
 	};
 };
 
+
 function ZielZwei() {
 	if(aktuellesBoard[player.y][player.x] == "y") {
 		//Spieler hat Buch eingesammelt
@@ -195,15 +197,12 @@ function ZielZwei() {
 		zielSoundOhne.play();
 		alert("Es fehlen noch Bücher!");
 		};
-		
-	
 	};
-	
 }
+
 
 //Überprüfung, ob Rand, Mauer, Ziel oder außerhalb des Spielfelds
 function canMove(x,y){
-	//console.log("canMove : "+nochZeit);
 		if (x<0){return false;} //x darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (y<0){return false;} //y darf nicht kleiner als Null sein (weil Spieler sonst links oben außerhalb vom Spielfeld)
 		else if (!nochZeit){return false;}
@@ -211,19 +210,33 @@ function canMove(x,y){
 		else if (x>=board.length){return false;} //x darf nicht größer als die Länge des Labyrinth/board sein
 		else if (y>=board.length){return false;} //y darf nicht größer als die Länge des Labyrinth/board sein
 		else if (aktuellesBoard[y][x] == "m"){return false;} // x und y dürfen nicht "m" (Mauer) sein
-			//Ziel Runde 1
-		else if ((board[y][x] == "z") && (player.book == true)){alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek. Weiter geht es mit der nächsten Runde!");
-		zielSound.play(); aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
-			//Ziel Runde 2
-		else if ((board2[y][x] == "y") && (player.books == true) && (player.buch == true)){alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); ZielZwei();
-		zielSound.play(); aktuelleSpielrunde++; nochZeit= false; alert("Ende");} //Ziel wird erkannt und neue Spielrunde geladen
-		else {return true;};	
-		Buch();	
-	};
-	
 
-	
-//Tastensteuerung
+		//Ziel Runde 1
+		else if ((board[y][x] == "z") && (player.book == true))
+				{zielSound.play();
+				alert("Du hast es geschafft! Das Buch ist rechtzeitig in der Bibliothek. Weiter geht es mit der nächsten Runde!");
+				//Ziel wird erkannt und neue Spielrunde geladen
+				aktuelleSpielrunde++, player.x = 0; player.y = 0; player.book = false; TotalSeconds = 30;}
+		//Ziel Runde 2
+		else if ((board2[y][x] == "y") && (player.books == true) && (player.buch == true))
+				{zielSound.play();
+				alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); 
+				backgroundMusik.stop();
+				
+				//Variante Spielende 1
+				aktuelleSpielrunde++; nochZeit= false; alert("Ende");
+				//Varinate 2
+				nochZeit = false;
+				
+				console.log(nochZeit);
+				} //Ziel wird erkannt
+
+		else {return true;};	
+		Buch();
+		
+	};
+
+	//Tastensteuerung
 $(document).keyup(function(e){
     if((e.which == 38) && canMove(player.x, player.y-1))//Pfeiltaste nach oben
         player.y--; //y wird um eins verringert, Spieler bewegt sich nach oben
@@ -261,8 +274,9 @@ function sound(src) {
         this.sound.pause();
     }
 };
-}; // Ende der Bybb-Funktion
 
+};
+// Ende der Bybb-Funktion
 
 
 //Countdown
@@ -279,18 +293,18 @@ window.setTimeout("Tick()", 1000); //1000 Millisekunden = 1 Sekunde -> die Funkt
 
 
 
-
-
 function Tick() {
-	loseSound = new sound ("ohhh.mp3");		//Sound beim Ablauf der Zeit, Verknüpung
+	loseSound = new sound ("ohhh.mp3");		//Sound beim Ablauf der Zeit, Verknüpfung
 	var loseSound;
-	
-	if (TotalSeconds <= 0) {				//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
+
+
+	if (TotalSeconds <= 0) {		//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
 	loseSound.play();						
 	alert("Oh nein! Die Leihfrist ist abgelaufen!");
 	nochZeit = false;
+	console.log(nochZeit);
 	return;  
-	}
+}
 
 TotalSeconds -= 1; //Sekunden werden jede Sekunde um 1 heruntergezählt
 UpdateTimer();
