@@ -129,16 +129,20 @@ function draw(){
 
    //Spieler wird gezeichnet (mit und ohne Büchern)
 
-	if ((player.book == false) && (player.buch == false) && (player.books == false)) 	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
+	//Wenn der Spieler das Buch noch nicht aufgesammelt hat, dann wird ein Bild von Tom angezeigt
+	if ((player.book == false) && (player.buch == false) && (player.books == false)) 	
 	{ctx.drawImage(document.getElementById('tom'), player.x*blockSize, player.y*blockSize, 55, 55);} 
-	else if ((player.book == true) && (player.buch == false) && (player.books == false))	//Wenn das Buch b aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	//Wenn das Buch b aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if ((player.book == true) && (player.buch == false) && (player.books == false))	
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
-	else if ((player.buch == true) && (player.book == false) && (player.books == false))	//Wenn das Buch h aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	//Wenn das Buch h aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if ((player.buch == true) && (player.book == false) && (player.books == false))	
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
-	else if ((player.books == true) && (player.book == false) && (player.buch == false))	//Wenn das Buch d aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	//Wenn das Buch d aufgesammelt wurde, wird ein Bild von Tom mit Büchern angezeigt
+	else if ((player.books == true) && (player.buch == false) &&(player.book == false))
 	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 	else if ((player.books == true) && (player.buch == true) && (player.book == false))
-		{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
+	{ctx.drawImage(document.getElementById('tomMitBuch'), player.x*blockSize, player.y*blockSize, 55, 55);}
 };
 
 
@@ -226,9 +230,9 @@ function canMove(x,y){
 				//Variante Spielende 1
 				aktuelleSpielrunde++; nochZeit= false; 
 				console.log("Ende");
-				//Varinate 2
-				nochZeit = false;
-				console.log(nochZeit);
+				//Variante 2
+				//nochZeit = false;
+				//console.log(nochZeit);
 				} //Ziel wird erkannt
 
 		else {return true;};	
