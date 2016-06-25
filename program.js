@@ -33,7 +33,7 @@ function Bybb(){
 //Canvas
 canvas = document.getElementById("GameBoardCanvas"); //holt Angaben zu Canvas aus HTML-Datei
 
-//Labyrinth festlegen: m = Mauer, w = Weg, z = Ziel, b = Buch, h = 2. Buch, d = 3. Buch
+//Labyrinth festlegen: m = Mauer, w = Weg, z = 1. Ziel, y = 2. Ziel, b = Buch, h = 2. Buch, d = 3. Buch
 
 //Labyrinth der ersten Spielrunde
 board = [
@@ -63,7 +63,7 @@ var board2 = [
     [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "m"],
     [ "m", "m", "w", "w", "w", "m", "m", "w", "m", "m"],
     [ "w", "m", "w", "m", "w", "w", "w", "w", "m", "w"],
-    [ "w", "w", "w", "m", "w", "m", "w", "w", "w", "y"]
+    [ "w", "w", "w", "m", "w", "m", "m", "w", "w", "y"]
 ];
 
 
@@ -227,7 +227,6 @@ function canMove(x,y){
 				aktuelleSpielrunde++; nochZeit= false; alert("Ende");
 				//Varinate 2
 				nochZeit = false;
-				
 				console.log(nochZeit);
 				} //Ziel wird erkannt
 
@@ -301,6 +300,7 @@ function Tick() {
 	if (TotalSeconds <= 0) {		//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
 	loseSound.play();						
 	alert("Oh nein! Die Leihfrist ist abgelaufen!");
+	backgroundMusik.stop();
 	nochZeit = false;
 	console.log(nochZeit);
 	return;  
