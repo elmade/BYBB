@@ -224,7 +224,8 @@ function canMove(x,y){
 				backgroundMusik.stop();
 				
 				//Variante Spielende 1
-				aktuelleSpielrunde++; nochZeit= false; alert("Ende");
+				aktuelleSpielrunde++; nochZeit= false; 
+				console.log("Ende");
 				//Varinate 2
 				nochZeit = false;
 				console.log(nochZeit);
@@ -300,7 +301,6 @@ function Tick() {
 	if (TotalSeconds <= 0) {		//Wenn der Countdown bei 0 angelangt ist, stoppt die Funktion und liefert ein Popup-Fenster und einen Sound
 	loseSound.play();						
 	alert("Oh nein! Die Leihfrist ist abgelaufen!");
-	backgroundMusik.stop();
 	nochZeit = false;
 	console.log(nochZeit);
 	return;  
