@@ -7,11 +7,12 @@ function Bybb(){
 	CreateTimer("timer", 25);		//Countdown wird erstellt, Sekundenanzahl festgelegt
 	zielSound = new sound("cheering.mp3");			//Sound beim Erreichen des Ziels, Datei wird verknüpft
 	backgroundMusik = new sound("background.mp3"); 	//Hintergrundmusik, Verknüfung
-    backgroundMusik.play();							//Hintergrundmusik wird abgespielt
 	buchSound = new sound("ping.mp3");				//Sound beim Einsammeln des Buchs, Verknüpfung
 	zielSoundOhne = new sound ("becken.mp3");		//Sound beim Erreichen des Ziels ohne Buch, Verknüpfung
 	
-	
+	if (nochZeit = true) {
+	backgroundMusik.play()}						//Hintergrundmusik wird nur abgespielt, wenn der Timer noch läuft
+	else {backgroundMusik.stop()};
 	
 	var canvas; 	//Variable für Spielfeld
 	var board; 		//Variable für Labyrinth
