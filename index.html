@@ -10,15 +10,15 @@
 	 
 	  <script src="program.js"></script>
 	  <link rel="stylesheet" type="text/css" href="style.css">
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 	</head>
 
 	<body>
 	
 
-<div class = "beschreibung">
+	<div class = "beschreibung">
+	
 	<h1 id="mytitle">Bring Your Book Back</h1>
 	<div id="something">In Toms Zimmer herrscht mal wieder Chaos... Doch er muss schnellstens die Bücher aus der Bibliothek finden, bevor die Leihfrist abläuft! 
 	<br>
@@ -27,35 +27,29 @@
 	</div>
 	
 	<br>
-	
-
 	<button type="button" onclick="Bybb()">Los geht´s!</button>
-	
-	
-	
 	<br>
-</div>
+	</div>
 
-<div id='timer'> 
+	<div id='timer'> 
 	</div> 	
 	
+	<br>
 	
- 
-<br>
+	<!-- Canvas -->
+	<canvas id="GameBoardCanvas" width="600px" height="600px">
+	</canvas>
 
-<canvas id="GameBoardCanvas" width="600px" height="600px">
-</canvas>
+	<!--Bilder, die vor Spielbeginn geladen werden -->
+	<div id="images" style="display:none">
+	<img src='tom-ohne-buch.png' id='tom'/>
+	<img src='tom-mit-buch.png' id='tomMitBuch'/>
+	<img src='books.png' id='buch'/>
+	<img src='books2.png' id='buch2'/>
+	<img src='library1.png' id='library1'/>
+	<img src='library.png' id='library'/>
 
-<!--Bilder, die vor Spielbeginn geladen werden -->
-<div id="images" style="display:none">
-<img src='tom-ohne-buch.png' id='tom'/>
-<img src='tom-mit-buch.png' id='tomMitBuch'/>
-<img src='books.png' id='buch'/>
-<img src='books2.png' id='buch2'/>
-<img src='library1.png' id='library1'/>
-<img src='library.png' id='library'/>
-
-  </div>
+	</div>
 
 	</body>
 <footer>

@@ -227,13 +227,9 @@ function canMove(x,y){
 				{zielSound.play();
 				alert("Du hast es geschafft! Alle Bücher sind in der Bibliothek!"); 
 				backgroundMusik.stop();
-				
-				//Variante Spielende 1
+				//Versuch Spielende
 				aktuelleSpielrunde++; nochZeit= false; 
 				console.log("Ende");
-				//Variante 2
-				//nochZeit = false;
-				//console.log(nochZeit);
 				} //Ziel wird erkannt
 
 		else {return true;};	
