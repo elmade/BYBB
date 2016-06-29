@@ -3,7 +3,7 @@ var imZiel = false;
 
 			
 function Bybb(){
-	
+	document.getElementById("beschreibung").style.display="none";
 	CreateTimer("timer", 25);		//Countdown wird erstellt, Sekundenanzahl festgelegt
 	zielSound = new sound("cheering.mp3");			//Sound beim Erreichen des Ziels, Datei wird verknüpft
 	backgroundMusik = new sound("background.mp3"); 	//Hintergrundmusik, Verknüfung
